@@ -150,7 +150,7 @@ In this example we create the simplest possible PKI: One root CA and one
 signing CA.
 We use the CA to issue two types of user certificates.
 
-Go to: :doc:`simple/index`
+:doc:`simple/index`
 
 \2. Advanced PKI
 ----------------
@@ -160,7 +160,7 @@ a root CA and three subordinate CAs. We use the CAs
 to issue 4 different types of user certificates.
 We also encounter more (and more advanced) certificate extensions.
 
-Go to: :doc:`advanced/index`
+:doc:`advanced/index`
 
 \3. Expert PKI
 --------------
@@ -177,14 +177,14 @@ MIME Types
 This section takes a closer look at the MIME types and file extensions
 used.
 
-Go to: :doc:`mime`
+:doc:`mime`
 
 CA Database
 -----------------------
 
 This section examines the format of the CA database.
 
-Go to: :doc:`cadb`
+:doc:`cadb`
 
 References
 ==========
