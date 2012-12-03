@@ -160,7 +160,8 @@ The ``openssl ca`` command takes its configuration from the [ca] section of the
         -keyout certs/fred.key
 
 When prompted enter these DN components:
-DC=org, DC=simple, O=Simple Inc, CN=Fred Flintstone, emailAddress=fred\@simple.org
+DC=org, DC=simple, O=Simple Inc, CN=Fred Flintstone,
+emailAddress=fred\@simple.org. Leave other fields blank.
 
 \3.2 Create email certificate
 ------------------------------
