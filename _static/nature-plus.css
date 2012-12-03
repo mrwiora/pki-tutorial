@@ -1,0 +1,54 @@
+@import url('nature.css');
+
+a tt.xref {
+    color: #005b81;
+}
+
+h1 a tt.xref {
+    color: black;
+}
+
+a.reference em {
+    font-style: normal;
+}
+
+table.docutils {
+    width: 60%;
+    margin-top: 1em;
+    margin-bottom: 1em;
+}
+
+table.docutils th,
+table.docutils td {
+    padding: 1px 0px;
+}
+
+div#certificates p.rubric,
+div#mime-types p.rubric {
+    margin-top: 1em;
+}
+
+div img {
+    margin-top: 0.5em;
+}
+
+div#layout img {
+    /*margin-bottom: 1em;*/
+}
+
+div#references dt a.reference {
+    font-weight: bold;
+}
+
+div.sphinxsidebar ul {
+    margin-right: 5px;
+}
+
+div.sphinxsidebar p {
+    padding-right: 5px;
+}
+
+div#searchbox form.search {
+    /*line-height: 25px;*/
+    /*font-size: 18px;*/
+}
