@@ -1,0 +1,6 @@
+[submodule "pki-example-1"]
+	path = pki-example-1
+	url = https://bitbucket.org/stefanholek/pki-example-1
+[submodule "pki-example-2"]
+	path = pki-example-2
+	url = https://bitbucket.org/stefanholek/pki-example-2
