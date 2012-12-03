@@ -108,8 +108,8 @@ Please study the configuration files before you continue.
         -config etc/root-ca.conf \
         -in ca/root-ca.csr \
         -out ca/root-ca.crt \
-        -enddate 310101000000Z \
-        -extensions rootca_ext
+        -extensions rootca_ext \
+        -enddate 310101000000Z
 
 2048-bit RSA keys are deemed safe until 2030 (`RSA Labs`_).
 
