@@ -155,9 +155,9 @@ We use the CA to issue two types of user certificates.
 \2. Advanced PKI
 ----------------
 
-In this example we create a larger setup, consisting of
-a root CA and three subordinate CAs. We use the CAs
-to issue 4 different types of user certificates.
+In this example we create a larger setup, consisting of a root CA and three
+signing CAs.
+We use the CAs to issue 4 different types of user certificates.
 We also encounter more (and more advanced) certificate extensions.
 
 :doc:`advanced/index`
