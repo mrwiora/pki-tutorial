@@ -102,7 +102,7 @@ The ``openssl req`` command takes its configuration from the [req] section of th
         -config etc/root-ca.conf \
         -in ca/root-ca.csr \
         -out ca/root-ca.crt \
-        -extensions rootca_ext
+        -extensions root_ca_ext
 
 The ``openssl ca`` command takes its configuration from the [ca] section of the
 :doc:`configuration file <root-ca.conf>`.
@@ -144,7 +144,7 @@ The ``openssl ca`` command takes its configuration from the [ca] section of the
         -config etc/root-ca.conf \
         -in ca/signing-ca.csr \
         -out ca/signing-ca.crt \
-        -extensions leafca_ext
+        -extensions signing_ca_ext
 
 
 \3. Operate Signing CA

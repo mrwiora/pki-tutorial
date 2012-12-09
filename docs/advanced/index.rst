@@ -108,7 +108,7 @@ Please study the configuration files before you continue.
         -config etc/root-ca.conf \
         -in ca/root-ca.csr \
         -out ca/root-ca.crt \
-        -extensions rootca_ext \
+        -extensions root_ca_ext \
         -enddate 310101000000Z
 
 2048-bit RSA keys are deemed safe until 2030 (`RSA Labs`_).
@@ -159,7 +159,8 @@ Please study the configuration files before you continue.
     openssl ca \
         -config etc/root-ca.conf \
         -in ca/email-ca.csr \
-        -out ca/email-ca.crt
+        -out ca/email-ca.crt \
+        -extensions signing_ca_ext
 
 \2.5 Create initial CRL
 -----------------------
@@ -212,7 +213,8 @@ Please study the configuration files before you continue.
     openssl ca \
         -config etc/root-ca.conf \
         -in ca/network-ca.csr \
-        -out ca/network-ca.crt
+        -out ca/network-ca.crt \
+        -extensions signing_ca_ext
 
 \3.5 Create initial CRL
 -----------------------
@@ -265,7 +267,8 @@ Please study the configuration files before you continue.
     openssl ca \
         -config etc/root-ca.conf \
         -in ca/software-ca.csr \
-        -out ca/software-ca.crt
+        -out ca/software-ca.crt \
+        -extensions signing_ca_ext
 
 \4.5 Create initial CRL
 -----------------------
