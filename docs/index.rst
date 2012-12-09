@@ -168,8 +168,14 @@ We also encounter more certificate extensions.
 Expert PKI
 --------------
 
-More examples are in the works and will appear in future editions of this
-tutorial.
+In this example we create a 3-tier CA hierarchy: One root CA, one intermediate
+CA, and two signing CAs.
+We use the CAs to issue 6 types of user certificates.
+We revisit the certificatePolicies extension and define custom policy OIDs.
+We also show how to configure an OCSP responder.
+
+:doc:`expert/index`
+
 
 Appendixes
 ==========
