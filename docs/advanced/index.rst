@@ -51,9 +51,9 @@ new directory::
 Layout
 ======
 
-.. image:: ../_static/AdvancedPKILayout.gif
-   :width: 490
-   :height: 442
+.. image:: ../_static/AdvancedPKILayout.png
+   :width: 467
+   :height: 422
 
 We use one configuration file per CA:
 

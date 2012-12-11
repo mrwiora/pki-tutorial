@@ -59,9 +59,9 @@ It's called an infrastructure for a reason.
 Process
 ----------
 
-.. image:: _static/PKIProcess.gif
-   :width: 487
-   :height: 313
+.. image:: _static/PKIProcess.png
+   :width: 465
+   :height: 297
 
 #. A requestor generates a CSR and submits it to the CA.
 #. The CA issues a certificate based on the CSR and returns it to the requestor.
