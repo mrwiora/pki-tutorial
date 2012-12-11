@@ -41,11 +41,11 @@ div#references dt a.reference {
 }
 
 div.sphinxsidebar ul {
-    margin-right: 5px;
+    margin-right: 10px;
 }
 
 div.sphinxsidebar p {
-    padding-right: 5px;
+    padding-right: 10px;
 }
 
 div#searchbox form.search {
