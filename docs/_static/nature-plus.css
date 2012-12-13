@@ -29,11 +29,11 @@ div#mime-types p.rubric {
 }
 
 div img {
-    margin-top: 0.5em;
+    margin-top: 0.75em;
 }
 
 div#layout img {
-    /*margin-bottom: 1em;*/
+    margin-bottom: 0.5em;
 }
 
 div#references dt a.reference {
