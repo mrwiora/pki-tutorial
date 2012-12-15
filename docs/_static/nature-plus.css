@@ -36,6 +36,13 @@ div#layout img {
     margin-bottom: 0.5em;
 }
 
+div#examples ul,
+div#appendixes ul {
+    padding-left: 0px;
+    margin-left: 0px;
+    list-style-type: none;
+}
+
 div#references dt a.reference {
     font-weight: bold;
 }
