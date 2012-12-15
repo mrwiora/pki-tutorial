@@ -5,6 +5,7 @@
 
 .. highlight:: none
 
+==============================================================================
 OpenSSL PKI Tutorial |version|
 ==============================================================================
 
@@ -145,12 +146,10 @@ signing CA.
 We use the CA to issue two types of user certificates.
 
 .. toctree::
-   :hidden:
-   :numbered:
+   :maxdepth: 1
+   :titlesonly:
 
    simple/index
-
-:doc:`simple/index`
 
 Advanced PKI
 ----------------
@@ -161,12 +160,10 @@ We use the CAs to issue 4 different types of user certificates.
 We also encounter more (and more advanced) certificate extensions.
 
 .. toctree::
-   :hidden:
-   :numbered:
+   :maxdepth: 1
+   :titlesonly:
 
    advanced/index
-
-:doc:`advanced/index`
 
 Expert PKI
 --------------
@@ -184,11 +181,10 @@ This section takes a closer look at the MIME types and file extensions
 used.
 
 .. toctree::
-   :hidden:
+   :maxdepth: 1
+   :titlesonly:
 
    mime
-
-:doc:`mime`
 
 CA Database
 -----------------------
@@ -196,11 +192,10 @@ CA Database
 This section examines the format of the CA database.
 
 .. toctree::
-   :hidden:
+   :maxdepth: 1
+   :titlesonly:
 
    cadb
-
-:doc:`cadb`
 
 References
 ==========

@@ -5,6 +5,7 @@
 
 .. highlight:: bash
 
+==============================================================================
 Simple PKI
 ==============================================================================
 
@@ -45,23 +46,23 @@ Layout
 
 We use one configuration file per CA:
 
-* :doc:`root-ca.conf`
-* :doc:`signing-ca.conf`
-
-And one configuration file per CSR type:
-
-* :doc:`email-client.conf`
-* :doc:`tls-server.conf`
-
-Please study the configuration files before you continue.
-
 .. toctree::
-   :hidden:
+   :maxdepth: 2
+   :titlesonly:
 
    root-ca.conf
    signing-ca.conf
+
+And one configuration file per CSR type:
+
+.. toctree::
+   :maxdepth: 2
+   :titlesonly:
+
    email-client.conf
    tls-server.conf
+
+Please study the configuration files before you continue.
 
 
 Create Root CA
