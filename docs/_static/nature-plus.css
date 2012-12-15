@@ -28,11 +28,13 @@ div#mime-types p.rubric {
     margin-top: 1em;
 }
 
-div img {
-    margin-top: 0.75em;
+div#process img {
+    margin-top: 0.5em;
+    margin-bottom: 0.5em;
 }
 
 div#layout img {
+    margin-top: 0.75em;
     margin-bottom: 0.5em;
 }
 
@@ -48,14 +50,9 @@ div#references dt a.reference {
 }
 
 div.sphinxsidebar ul {
-    margin-right: 8px;
+    margin-right: 6px;
 }
 
 div.sphinxsidebar p {
-    padding-right: 8px;
-}
-
-div#searchbox form.search {
-    /*line-height: 25px;*/
-    /*font-size: 18px;*/
+    padding-right: 6px;
 }
