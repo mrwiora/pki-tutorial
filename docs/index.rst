@@ -174,7 +174,7 @@ Expert PKI
 More examples are in the works and will appear in future editions of this
 tutorial.
 
-Appendices
+Appendixes
 ==========
 
 MIME Types
