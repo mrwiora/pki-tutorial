@@ -10,13 +10,7 @@ OpenSSL PKI Tutorial |version|
 
 Create and operate Public Key Infrastructures with OpenSSL.
 
-.. toctree::
-   :hidden:
 
-   simple/index
-   advanced/index
-   mime
-   cadb
 
 Overview
 ============
@@ -150,6 +144,11 @@ In this example we create the simplest possible PKI: One root CA and one
 signing CA.
 We use the CA to issue two types of user certificates.
 
+.. toctree::
+   :hidden:
+
+   simple/index
+
 :doc:`simple/index`
 
 \2. Advanced PKI
@@ -159,6 +158,11 @@ In this example we create a larger setup, consisting of a root CA and three
 signing CAs.
 We use the CAs to issue 4 different types of user certificates.
 We also encounter more (and more advanced) certificate extensions.
+
+.. toctree::
+   :hidden:
+
+   advanced/index
 
 :doc:`advanced/index`
 
@@ -177,12 +181,22 @@ MIME Types
 This section takes a closer look at the MIME types and file extensions
 used.
 
+.. toctree::
+   :hidden:
+
+   mime
+
 :doc:`mime`
 
 CA Database
 -----------------------
 
 This section examines the format of the CA database.
+
+.. toctree::
+   :hidden:
+
+   cadb
 
 :doc:`cadb`
 

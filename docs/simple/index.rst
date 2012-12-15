@@ -11,14 +11,6 @@ Simple PKI
 The Simple PKI consists of one root CA and one signing CA.
 
 
-.. toctree::
-   :hidden:
-
-   root-ca.conf
-   signing-ca.conf
-   email-client.conf
-   tls-server.conf
-
 
 Overview
 ========
@@ -62,6 +54,15 @@ And one configuration file per CSR type:
 * :doc:`tls-server.conf`
 
 Please study the configuration files before you continue.
+
+.. toctree::
+   :hidden:
+
+   root-ca.conf
+   signing-ca.conf
+   email-client.conf
+   tls-server.conf
+
 
 \1. Create Root CA
 ==================

@@ -11,18 +11,6 @@ Advanced PKI
 The Advanced PKI consists of a root CA and a layer of subordinate CAs.
 
 
-.. toctree::
-   :hidden:
-
-   root-ca.conf
-   email-ca.conf
-   network-ca.conf
-   software-ca.conf
-   email-client.conf
-   tls-server.conf
-   tls-client.conf
-   code-signing.conf
-
 
 Overview
 ========
@@ -70,6 +58,18 @@ And one configuration file per CSR type:
 * :doc:`code-signing.conf`
 
 Please study the configuration files before you continue.
+
+.. toctree::
+   :hidden:
+
+   root-ca.conf
+   email-ca.conf
+   network-ca.conf
+   software-ca.conf
+   email-client.conf
+   tls-server.conf
+   tls-client.conf
+   code-signing.conf
 
 
 \1. Create Root CA
