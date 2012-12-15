@@ -137,7 +137,7 @@ Note: You need at least OpenSSL 1.0.1. Check with::
 
     openssl version
 
-\1. Simple PKI
+Simple PKI
 --------------
 
 In this example we create the simplest possible PKI: One root CA and one
@@ -146,12 +146,13 @@ We use the CA to issue two types of user certificates.
 
 .. toctree::
    :hidden:
+   :numbered:
 
    simple/index
 
 :doc:`simple/index`
 
-\2. Advanced PKI
+Advanced PKI
 ----------------
 
 In this example we create a larger setup, consisting of a root CA and three
@@ -161,12 +162,13 @@ We also encounter more (and more advanced) certificate extensions.
 
 .. toctree::
    :hidden:
+   :numbered:
 
    advanced/index
 
 :doc:`advanced/index`
 
-\3. Expert PKI
+Expert PKI
 --------------
 
 More examples are in the works and will appear in future editions of this

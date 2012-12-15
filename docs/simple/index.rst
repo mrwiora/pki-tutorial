@@ -64,17 +64,17 @@ Please study the configuration files before you continue.
    tls-server.conf
 
 
-\1. Create Root CA
+Create Root CA
 ==================
 
-\1.1 Create directories
+Create directories
 ------------------------
 ::
 
     mkdir -p ca/root-ca/private ca/root-ca/db crl certs
     chmod 700 ca/root-ca/private
 
-\1.2 Create database
+Create database
 ---------------------
 ::
 
@@ -83,7 +83,7 @@ Please study the configuration files before you continue.
     echo 01 > ca/root-ca/db/root-ca.crt.srl
     echo 01 > ca/root-ca/db/root-ca.crl.srl
 
-\1.3 Create CA request
+Create CA request
 -----------------------
 ::
 
@@ -95,7 +95,7 @@ Please study the configuration files before you continue.
 The ``openssl req`` command takes its configuration from the [req] section of the
 :doc:`configuration file <root-ca.conf>`.
 
-\1.4 Create CA certificate
+Create CA certificate
 ---------------------------
 ::
 
@@ -109,17 +109,17 @@ The ``openssl ca`` command takes its configuration from the [ca] section of the
 :doc:`configuration file <root-ca.conf>`.
 
 
-\2. Create Signing CA
+Create Signing CA
 =====================
 
-\2.1 Create directories
+Create directories
 ------------------------
 ::
 
     mkdir -p ca/signing-ca/private ca/signing-ca/db crl certs
     chmod 700 ca/signing-ca/private
 
-\2.2 Create database
+Create database
 ---------------------
 ::
 
@@ -128,7 +128,7 @@ The ``openssl ca`` command takes its configuration from the [ca] section of the
     echo 01 > ca/signing-ca/db/signing-ca.crt.srl
     echo 01 > ca/signing-ca/db/signing-ca.crl.srl
 
-\2.3 Create CA request
+Create CA request
 -----------------------
 ::
 
@@ -137,7 +137,7 @@ The ``openssl ca`` command takes its configuration from the [ca] section of the
         -out ca/signing-ca.csr \
         -keyout ca/signing-ca/private/signing-ca.key
 
-\2.4 Create CA certificate
+Create CA certificate
 ---------------------------
 ::
 
@@ -148,10 +148,10 @@ The ``openssl ca`` command takes its configuration from the [ca] section of the
         -extensions signing_ca_ext
 
 
-\3. Operate Signing CA
+Operate Signing CA
 ======================
 
-\3.1 Create email request
+Create email request
 --------------------------
 ::
 
@@ -164,7 +164,7 @@ When prompted enter these DN components:
 DC=org, DC=simple, O=Simple Inc, CN=Fred Flintstone,
 emailAddress=fred\@simple.org. Leave other fields blank.
 
-\3.2 Create email certificate
+Create email certificate
 ------------------------------
 ::
 
@@ -174,7 +174,7 @@ emailAddress=fred\@simple.org. Leave other fields blank.
         -out certs/fred.crt \
         -extensions email_ext
 
-\3.3 Create server request
+Create server request
 ---------------------------
 ::
 
@@ -189,7 +189,7 @@ When prompted enter these DN components:
 DC=org, DC=simple, O=Simple Inc, CN=www.simple.org.
 Note that the subjectAltName must be specified as environment variable.
 
-\3.4 Create server certificate
+Create server certificate
 -------------------------------
 ::
 
@@ -199,7 +199,7 @@ Note that the subjectAltName must be specified as environment variable.
         -out certs/simple.org.crt \
         -extensions server_ext
 
-\3.5 Revoke certificate
+Revoke certificate
 ------------------------
 ::
 
@@ -210,7 +210,7 @@ Note that the subjectAltName must be specified as environment variable.
 
 Revokes the certificate with serial number 02 (hex).
 
-\3.6 Create CRL
+Create CRL
 ----------------
 ::
 
@@ -219,10 +219,10 @@ Revokes the certificate with serial number 02 (hex).
         -out crl/signing-ca.crl
 
 
-\4. Output Formats
+Output Formats
 ===================
 
-\4.1 Create DER certificate
+Create DER certificate
 ----------------------------
 ::
 
@@ -233,7 +233,7 @@ Revokes the certificate with serial number 02 (hex).
 
 All published certificates must be in DER format.
 
-\4.2 Create DER CRL
+Create DER CRL
 --------------------
 ::
 
@@ -244,7 +244,7 @@ All published certificates must be in DER format.
 
 All published CRLs must be in DER format.
 
-\4.3 Create PKCS#7 bundle
+Create PKCS#7 bundle
 --------------------------
 ::
 
@@ -257,7 +257,7 @@ All published CRLs must be in DER format.
 PKCS#7 is used to bundle two or more certificates. The format would
 also allow for CRLs but they are not used in practice.
 
-\4.4 Create PKCS#12 bundle
+Create PKCS#12 bundle
 ---------------------------
 ::
 
@@ -271,7 +271,7 @@ PKCS#12 is used to bundle a certificate and its private key.
 Additional certificates may be added, typically the certificates comprising
 the chain up to the Root CA.
 
-\4.5 Create PEM bundle
+Create PEM bundle
 -----------------------
 ::
 
@@ -285,10 +285,10 @@ PEM bundles are created by concatenating other PEM-formatted files. Both
 "cert chain" and "key + cert" versions are in use.
 
 
-5. View Results
+View Results
 ================
 
-\5.1 View request
+View request
 ------------------
 ::
 
@@ -297,7 +297,7 @@ PEM bundles are created by concatenating other PEM-formatted files. Both
         -noout \
         -text
 
-\5.2 View certificate
+View certificate
 ----------------------
 ::
 
@@ -306,7 +306,7 @@ PEM bundles are created by concatenating other PEM-formatted files. Both
         -noout \
         -text
 
-\5.3 View CRL
+View CRL
 --------------
 ::
 
@@ -316,7 +316,7 @@ PEM bundles are created by concatenating other PEM-formatted files. Both
         -noout \
         -text
 
-\5.4 View PKCS#7 bundle
+View PKCS#7 bundle
 ------------------------
 ::
 
@@ -327,7 +327,7 @@ PEM bundles are created by concatenating other PEM-formatted files. Both
         -text \
         -print_certs
 
-\5.5 View PKCS#12 bundle
+View PKCS#12 bundle
 -------------------------
 ::
 
