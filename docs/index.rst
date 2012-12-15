@@ -174,7 +174,11 @@ We use the CAs to issue 6 types of user certificates.
 We revisit the certificatePolicies extension and define custom policy OIDs.
 We also show how to configure an OCSP responder.
 
-:doc:`expert/index`
+.. toctree::
+   :maxdepth: 1
+   :titlesonly:
+
+   expert/index
 
 
 Appendixes
