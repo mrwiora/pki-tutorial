@@ -43,7 +43,7 @@ The list of MIME types and file extensions however is easily twice as long::
 
 Where do they come from?
 
-#. pkcs8 and the .p8 extension are defined in :rfc:`5958#section-3`.
+#. pkcs8 and the .p8 extension are defined in :rfc:`5958#section-7.1`.
    The .key extension is OpenSSL practice. [#]_
 
 #. pkcs10 and the .p10 extension are defined in :rfc:`5967#section-3.1`.
