@@ -1,5 +1,5 @@
-CA Database
-===========
+Appendix B: CA Database
+=======================
 
 Index file
 ----------

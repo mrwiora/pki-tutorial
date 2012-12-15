@@ -1,4 +1,4 @@
-MIME Types
+Appendix A: MIME Types
 ======================
 
 .. highlight:: none
