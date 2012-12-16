@@ -2,7 +2,7 @@
 Appendix B: CA Database
 =======================
 
-Index file
+Index File
 ----------
 
 The index file consists of zero or more lines,
@@ -18,14 +18,14 @@ each containing the following fields separated by tab characters:
 
 The file is used as a certificate database by the ``openssl ca`` command.
 
-Attribute file
+Attribute File
 --------------
 
 The attribute file contains a single line: ``unique_subject = no``. It
 reflects the setting in the CA section of the configuration file at the time
 the first record is added to the database.
 
-Serial number files
+Serial Number Files
 -------------------
 
 The ``openssl ca`` command uses two serial number files:

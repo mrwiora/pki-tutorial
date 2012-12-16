@@ -4,7 +4,7 @@ Appendix A: MIME Types
 
 .. highlight:: none
 
-File types
+File Types
 ----------
 
 When operating a PKI we deal with only a handful of file types:
@@ -21,7 +21,7 @@ When operating a PKI we deal with only a handful of file types:
 
 #. PKCS#12 bundles of private key + certificate(s)
 
-MIME types
+MIME Types
 ----------
 
 The list of MIME types and file extensions however is easily twice as long::
