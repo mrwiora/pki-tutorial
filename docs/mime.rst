@@ -60,10 +60,10 @@ Where do they come from?
    File contents are the same as with pkix-cert: a DER encoded X.509 certificate.
    [:rfc:`5280#section-4`] [#]_
 
-#. x-x509-user-cert was introduced by Netscape at the same time
-   but didn't catch on.
+#. x-x509-user-cert was introduced by Netscape at the same time. It is
+   used to install certificates into (some) browsers.
 
-#. x-pkcs7-crl was also introduced by Netscape. Note that the .crl
+#. x-pkcs7-crl was introduced by Netscape as well. Note that the .crl
    extension conflicts with pkix-crl. File contents are the same in either
    case: a DER encoded X.509 CRL.
    [:rfc:`5280#section-5`]
@@ -73,7 +73,7 @@ Where do they come from?
 
 #. x-pkcs12 and the .p12 extension are used for PKCS#12 files.
    The .pfx extension is a relic from a predecessor of PKCS#12.
-   It is still used in Microsoft environments (the extension not the format).
+   It is still used in Microsoft environments (the extension not the format.)
 
 #. x-pkcs7-certificates as well as the .p7b and .spc extensions were introduced
    by Microsoft. File contents are the same as with pkcs7-mime: a DER
