@@ -304,7 +304,8 @@ Create email certificate
     openssl ca \
         -config etc/email-ca.conf \
         -in certs/fred.csr \
-        -out certs/fred.crt
+        -out certs/fred.crt \
+        -extensions email_ext
 
 Create PKCS#12 bundle
 --------------------------
@@ -361,7 +362,8 @@ Create server certificate
     openssl ca \
         -config etc/network-ca.conf \
         -in certs/fnord.no.csr \
-        -out certs/fnord.no.crt
+        -out certs/fnord.no.crt \
+        -extensions server_ext
 
 Create PKCS#12 bundle
 --------------------------
@@ -460,7 +462,8 @@ Create code-signing certificate
     openssl ca \
         -config etc/software-ca.conf \
         -in certs/software.csr \
-        -out certs/software.crt
+        -out certs/software.crt \
+        -extensions codesign_ext
 
 Create PKCS#12 bundle
 --------------------------
