@@ -157,7 +157,7 @@ Advanced PKI
 In this example we create a larger setup, consisting of a root CA and three
 signing CAs.
 We use the CAs to issue 4 different types of user certificates.
-We also encounter more (and more advanced) certificate extensions.
+We also encounter more certificate extensions.
 
 .. toctree::
    :maxdepth: 1
