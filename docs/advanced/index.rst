@@ -295,7 +295,8 @@ Create email request
         -out certs/fred.csr \
         -keyout certs/fred.key
 
-DN: C=NO, O=Fnord AS, CN=Fred Flintstone, emailAddress=fred\@fnord.no
+DN: C=NO, O=Fnord AS, CN=Fred Flintstone, emailAddress=fred\@fnord.no. Leave
+other fields blank.
 
 Create email certificate
 -----------------------------
