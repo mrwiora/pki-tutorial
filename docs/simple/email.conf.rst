@@ -1,10 +1,10 @@
-=======================================
-Email Client Request Configuration File
-=======================================
+============================================
+Email Certificate Request Configuration File
+============================================
 
 .. highlight:: openssl
 
-.. literalinclude:: ../../pki-example-1/etc/email-client.conf
+.. literalinclude:: ../../pki-example-1/etc/email.conf
 
 References
 ==========

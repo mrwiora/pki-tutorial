@@ -1,6 +1,6 @@
-=========================================
-TLS Client Request Configuration File
-=========================================
+=================================================
+TLS Client Certificate Request Configuration File
+=================================================
 
 .. highlight:: openssl
 

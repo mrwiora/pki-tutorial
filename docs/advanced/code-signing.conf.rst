@@ -1,6 +1,6 @@
-===========================================
-Code-Signing Request Configuration File
-===========================================
+===================================================
+Code-Signing Certificate Request Configuration File
+===================================================
 
 .. highlight:: openssl
 

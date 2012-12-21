@@ -59,7 +59,7 @@ And one configuration file per CSR type:
    :maxdepth: 2
    :titlesonly:
 
-   email-client.conf
+   email.conf
    tls-server.conf
 
 Please study the configuration files before you continue.
@@ -157,7 +157,7 @@ Create email request
 ::
 
     openssl req -new \
-        -config etc/email-client.conf \
+        -config etc/email.conf \
         -out certs/fred.csr \
         -keyout certs/fred.key
 
