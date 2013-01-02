@@ -14,7 +14,7 @@ each containing the following fields separated by tab characters:
    revoked.
 #. Certificate serial number in hex.
 #. Certificate filename or literal string 'unknown'.
-#. Certificate Distinguished Name
+#. Certificate distinguished name.
 
 The file is used as a certificate database by the ``openssl ca`` command.
 
