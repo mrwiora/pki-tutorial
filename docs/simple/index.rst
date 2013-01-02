@@ -62,7 +62,7 @@ And one configuration file per CSR type:
    email.conf
    tls-server.conf
 
-Please study the configuration files before you continue.
+Please familiarize yourself with the configuration files before you continue.
 
 
 Create Root CA
@@ -75,6 +75,9 @@ Create directories
     mkdir -p ca/root-ca/private ca/root-ca/db crl certs
     chmod 700 ca/root-ca/private
 
+The ``ca`` drectory holds CA resources, the ``crl`` directory holds CRLs, and
+the ``certs`` directory holds user certificates.
+
 Create database
 ---------------------
 ::
@@ -83,6 +86,8 @@ Create database
     cp /dev/null ca/root-ca/db/root-ca.db.attr
     echo 01 > ca/root-ca/db/root-ca.crt.srl
     echo 01 > ca/root-ca/db/root-ca.crl.srl
+
+For what these files do see :doc:`../cadb`.
 
 Create CA request
 -----------------------
@@ -93,6 +98,8 @@ Create CA request
         -out ca/root-ca.csr \
         -keyout ca/root-ca/private/root-ca.key
 
+With the ``openssl req -new`` command we create a private key and a certificate
+signing request (CSR) for the root CA.
 The ``openssl req`` command takes its configuration from the [req] section of the
 :doc:`configuration file <root-ca.conf>`.
 
@@ -106,6 +113,9 @@ Create CA certificate
         -out ca/root-ca.crt \
         -extensions root_ca_ext
 
+With the ``openssl ca`` command we issue a certificate based on the CSR. The root
+certificate is self-signed and serves as the starting point for all trust
+relationships in the PKI.
 The ``openssl ca`` command takes its configuration from the [ca] section of the
 :doc:`configuration file <root-ca.conf>`.
 
@@ -120,6 +130,10 @@ Create directories
     mkdir -p ca/signing-ca/private ca/signing-ca/db crl certs
     chmod 700 ca/signing-ca/private
 
+The ``ca`` drectory holds CA resources, the ``crl`` directory holds
+CRLs, and the ``certs`` directory holds user certificates. We will use this
+layout for all CAs in this tutorial.
+
 Create database
 ---------------------
 ::
@@ -128,6 +142,8 @@ Create database
     cp /dev/null ca/signing-ca/db/signing-ca.db.attr
     echo 01 > ca/signing-ca/db/signing-ca.crt.srl
     echo 01 > ca/signing-ca/db/signing-ca.crl.srl
+
+The contents of these files are described in :doc:`../cadb`.
 
 Create CA request
 -----------------------
@@ -138,6 +154,11 @@ Create CA request
         -out ca/signing-ca.csr \
         -keyout ca/signing-ca/private/signing-ca.key
 
+With the ``openssl req -new`` command we create a private key and a CSR for
+the signing CA. The configuration is read from the [req] section of the
+:doc:`signing CA configuration file <signing-ca.conf>`.
+Signing CAs issue only user certificates.
+
 Create CA certificate
 ---------------------------
 ::
@@ -147,6 +168,10 @@ Create CA certificate
         -in ca/signing-ca.csr \
         -out ca/signing-ca.crt \
         -extensions signing_ca_ext
+
+With the ``openssl ca`` command we create a CA certificate from the CSR. Note
+that it is the root CA that issues the signing CA certificate; the signing CA
+is *subordinate* to the root CA.
 
 
 Operate Signing CA
@@ -161,6 +186,9 @@ Create email request
         -out certs/fred.csr \
         -keyout certs/fred.key
 
+With the ``openssl req -new`` command we create the private key and CSR for an
+email-protection certificate. We use a :doc:`request configuration file
+<email.conf>` specifically prepared for the task.
 When prompted enter these DN components:
 DC=org, DC=simple, O=Simple Inc, CN=Fred Flintstone,
 emailAddress=fred\@simple.org. Leave other fields blank.
@@ -175,6 +203,11 @@ Create email certificate
         -out certs/fred.crt \
         -extensions email_ext
 
+We use the signing CA to issue the email-protection certificate. The
+certificate type is defined by the extensions we attach.
+A copy of the certificate is saved in the certificate archive under the name
+``ca/signing-ca/01.pem`` (01 being the certificate serial number in hex.)
+
 Create server request
 ---------------------------
 ::
@@ -186,9 +219,12 @@ Create server request
         -keyout certs/simple.org.key \
         -nodes
 
+Next we create the private key and CSR for a TLS-server certificate using a
+different :doc:`request configuration file <tls-server.conf>`.
 When prompted enter these DN components:
 DC=org, DC=simple, O=Simple Inc, CN=www.simple.org.
 Note that the subjectAltName must be specified as environment variable.
+Note also that server keys typically have no passphrase.
 
 Create server certificate
 -------------------------------
@@ -200,16 +236,25 @@ Create server certificate
         -out certs/simple.org.crt \
         -extensions server_ext
 
+We use the signing CA to issue the TLS-server certificate. The certificate
+type is determined by the extensions we attach.
+A copy of the certificate is saved in the certificate archive under the name
+``ca/signing-ca/02.pem``.
+
 Revoke certificate
 ------------------------
 ::
 
     openssl ca \
         -config etc/signing-ca.conf \
-        -revoke ca/signing-ca/02.pem \
+        -revoke ca/signing-ca/01.pem \
         -crl_reason superseded
 
-Revokes the certificate with serial number 02 (hex).
+Certain events, like certificate replacement or loss of private key, require a
+certificate to be revoked before its expiration date. The ``openssl ca
+-revoke`` command marks a certificate as revoked in the CA database. It will
+from then on be included in CRLs issued by the CA.
+The above command revokes the certificate with serial number 01 (hex).
 
 Create CRL
 ----------------
@@ -218,6 +263,12 @@ Create CRL
     openssl ca -gencrl \
         -config etc/signing-ca.conf \
         -out crl/signing-ca.crl
+
+The ``openssl ca -gencrl`` command creates a certificate revocation list
+(CRL).
+The CRL contains all revoked, not-yet-expired certificates from the CA
+database.
+A new CRL must be issued at regular intervals.
 
 
 Output Formats
