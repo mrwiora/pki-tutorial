@@ -169,7 +169,7 @@ Create CA certificate
         -out ca/signing-ca.crt \
         -extensions signing_ca_ext
 
-With the ``openssl ca`` command we create a CA certificate from the CSR. Note
+With the ``openssl ca`` command we create a certificate from the CSR. Note
 that it is the root CA that issues the signing CA certificate; the signing CA
 is *subordinate* to the root CA.
 
@@ -187,7 +187,7 @@ Create email request
         -keyout certs/fred.key
 
 With the ``openssl req -new`` command we create the private key and CSR for an
-email-protection certificate. We use a :doc:`request configuration file
+email-protection (user) certificate. We use a :doc:`request configuration file
 <email.conf>` specifically prepared for the task.
 When prompted enter these DN components:
 DC=org, DC=simple, O=Simple Inc, CN=Fred Flintstone,
@@ -251,7 +251,7 @@ Revoke certificate
         -crl_reason superseded
 
 Certain events, like certificate replacement or loss of private key, require a
-certificate to be revoked before its expiration date. The ``openssl ca
+certificate to be revoked before its scheduled expiration date. The ``openssl ca
 -revoke`` command marks a certificate as revoked in the CA database. It will
 from then on be included in CRLs issued by the CA.
 The above command revokes the certificate with serial number 01 (hex).
