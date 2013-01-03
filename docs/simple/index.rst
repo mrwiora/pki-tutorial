@@ -75,7 +75,7 @@ Create directories
     mkdir -p ca/root-ca/private ca/root-ca/db crl certs
     chmod 700 ca/root-ca/private
 
-The ``ca`` drectory holds CA resources, the ``crl`` directory holds CRLs, and
+The ``ca`` directory holds CA resources, the ``crl`` directory holds CRLs, and
 the ``certs`` directory holds user certificates.
 
 Create database
@@ -87,7 +87,8 @@ Create database
     echo 01 > ca/root-ca/db/root-ca.crt.srl
     echo 01 > ca/root-ca/db/root-ca.crl.srl
 
-For what these files do see :doc:`../cadb`.
+The database files must exist before the ``openssl ca`` command can be used.
+Their contents are described in :doc:`../cadb`.
 
 Create CA request
 -----------------------
@@ -130,7 +131,7 @@ Create directories
     mkdir -p ca/signing-ca/private ca/signing-ca/db crl certs
     chmod 700 ca/signing-ca/private
 
-The ``ca`` drectory holds CA resources, the ``crl`` directory holds
+The ``ca`` directory holds CA resources, the ``crl`` directory holds
 CRLs, and the ``certs`` directory holds user certificates. We will use this
 layout for all CAs in this tutorial.
 
