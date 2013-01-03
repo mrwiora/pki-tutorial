@@ -132,7 +132,7 @@ The examples are meant to be done in order, each providing the basis for
 the ones that follow.
 They are deliberately low on prose, we prefer to let the configuration files
 and command lines speak for themselves.
-Please use the links at the bottom of each page for background information.
+Please use the links at the bottom of each page for details!
 
 Note: You need at least OpenSSL 1.0.1. Check with::
 
