@@ -65,17 +65,17 @@ And one configuration file per CSR type:
 Please study the configuration files before you continue.
 
 
-Create Root CA
+1. Create Root CA
 =======================
 
-Create directories
+1.1 Create directories
 -----------------------
 ::
 
     mkdir -p ca/root-ca/private ca/root-ca/db crl certs
     chmod 700 ca/root-ca/private
 
-Create database
+1.2 Create database
 --------------------
 ::
 
@@ -84,7 +84,7 @@ Create database
     echo 01 > ca/root-ca/db/root-ca.crt.srl
     echo 01 > ca/root-ca/db/root-ca.crl.srl
 
-Create CA request
+1.3 Create CA request
 ----------------------
 ::
 
@@ -93,7 +93,7 @@ Create CA request
         -out ca/root-ca.csr \
         -keyout ca/root-ca/private/root-ca.key
 
-Create CA certificate
+1.4 Create CA certificate
 --------------------------
 ::
 
@@ -108,7 +108,7 @@ Create CA certificate
 
 .. _`RSA Labs`: http://www.rsa.com/rsalabs/node.asp?id=2004
 
-Create initial CRL
+1.5 Create initial CRL
 -----------------------
 ::
 
@@ -117,17 +117,17 @@ Create initial CRL
         -out crl/root-ca.crl
 
 
-Create Network CA
+2. Create Network CA
 ==========================
 
-Create directories
+2.1 Create directories
 -----------------------
 ::
 
     mkdir -p ca/network-ca/private ca/network-ca/db crl certs
     chmod 700 ca/network-ca/private
 
-Create database
+2.2 Create database
 --------------------
 ::
 
@@ -136,7 +136,7 @@ Create database
     echo 01 > ca/network-ca/db/network-ca.crt.srl
     echo 01 > ca/network-ca/db/network-ca.crl.srl
 
-Create CA request
+2.3 Create CA request
 ----------------------
 ::
 
@@ -145,7 +145,7 @@ Create CA request
         -out ca/network-ca.csr \
         -keyout ca/network-ca/private/network-ca.key
 
-Create CA certificate
+2.4 Create CA certificate
 --------------------------
 ::
 
@@ -156,7 +156,7 @@ Create CA certificate
         -extensions intermediate_ca_ext \
         -enddate 310101000000Z
 
-Create initial CRL
+2.5 Create initial CRL
 -----------------------
 ::
 
@@ -164,7 +164,7 @@ Create initial CRL
         -config etc/network-ca.conf \
         -out crl/network-ca.crl
 
-Create PEM bundle
+2.6 Create PEM bundle
 ----------------------
 ::
 
@@ -172,17 +172,17 @@ Create PEM bundle
         ca/network-ca-chain.pem
 
 
-Create Identity CA
+3. Create Identity CA
 ===========================
 
-Create directories
+3.1 Create directories
 -----------------------
 ::
 
     mkdir -p ca/identity-ca/private ca/identity-ca/db crl certs
     chmod 700 ca/identity-ca/private
 
-Create database
+3.2 Create database
 --------------------
 ::
 
@@ -191,7 +191,7 @@ Create database
     echo 01 > ca/identity-ca/db/identity-ca.crt.srl
     echo 01 > ca/identity-ca/db/identity-ca.crl.srl
 
-Create CA request
+3.3 Create CA request
 ----------------------
 ::
 
@@ -200,7 +200,7 @@ Create CA request
         -out ca/identity-ca.csr \
         -keyout ca/identity-ca/private/identity-ca.key
 
-Create CA certificate
+3.4 Create CA certificate
 --------------------------
 ::
 
@@ -210,7 +210,7 @@ Create CA certificate
         -out ca/identity-ca.crt \
         -extensions signing_ca_ext
 
-Create initial CRL
+3.5 Create initial CRL
 -----------------------
 ::
 
@@ -218,7 +218,7 @@ Create initial CRL
         -config etc/identity-ca.conf \
         -out crl/identity-ca.crl
 
-Create PEM bundle
+3.6 Create PEM bundle
 ----------------------
 ::
 
@@ -226,17 +226,17 @@ Create PEM bundle
         ca/identity-ca-chain.pem
 
 
-Create Component CA
+4. Create Component CA
 ============================
 
-Create directories
+4.1 Create directories
 -----------------------
 ::
 
     mkdir -p ca/component-ca/private ca/component-ca/db crl certs
     chmod 700 ca/component-ca/private
 
-Create database
+4.2 Create database
 --------------------
 ::
 
@@ -245,7 +245,7 @@ Create database
     echo 01 > ca/component-ca/db/component-ca.crt.srl
     echo 01 > ca/component-ca/db/component-ca.crl.srl
 
-Create CA request
+4.3 Create CA request
 ----------------------
 ::
 
@@ -254,7 +254,7 @@ Create CA request
         -out ca/component-ca.csr \
         -keyout ca/component-ca/private/component-ca.key
 
-Create CA certificate
+4.4 Create CA certificate
 --------------------------
 ::
 
@@ -264,7 +264,7 @@ Create CA certificate
         -out ca/component-ca.crt \
         -extensions signing_ca_ext
 
-Create initial CRL
+4.5 Create initial CRL
 -----------------------
 ::
 
@@ -272,7 +272,7 @@ Create initial CRL
         -config etc/component-ca.conf \
         -out crl/component-ca.crl
 
-Create PEM bundle
+4.6 Create PEM bundle
 ----------------------
 ::
 
@@ -280,10 +280,10 @@ Create PEM bundle
         ca/component-ca-chain.pem
 
 
-Operate Identity CA
+5. Operate Identity CA
 ============================
 
-Create identity request
+5.1 Create identity request
 ----------------------------
 ::
 
@@ -294,7 +294,7 @@ Create identity request
 
 DN: C=SE, O=Blue AB, CN=Fred Flintstone, emailAddress=fred\@blue.se
 
-Create identity certificate
+5.2 Create identity certificate
 --------------------------------
 ::
 
@@ -304,7 +304,7 @@ Create identity certificate
         -out certs/fred-id.crt \
         -extensions identity_ext
 
-Create PKCS#12 bundle
+5.3 Create PKCS#12 bundle
 --------------------------
 ::
 
@@ -318,7 +318,7 @@ Create PKCS#12 bundle
         -certfile ca/identity-ca-chain.pem \
         -out certs/fred-id.p12
 
-Create encryption request
+5.4 Create encryption request
 ------------------------------
 ::
 
@@ -329,7 +329,7 @@ Create encryption request
 
 DN: C=SE, O=Blue AB, CN=Fred Flintstone, emailAddress=fred\@blue.se
 
-Create encryption certificate
+5.5 Create encryption certificate
 ----------------------------------
 ::
 
@@ -339,7 +339,7 @@ Create encryption certificate
         -out certs/fred-enc.crt \
         -extensions encryption_ext
 
-Create PKCS#12 bundle
+5.6 Create PKCS#12 bundle
 --------------------------
 ::
 
@@ -353,7 +353,7 @@ Create PKCS#12 bundle
         -certfile ca/identity-ca-chain.pem \
         -out certs/fred-enc.p12
 
-Revoke certificate
+5.7 Revoke certificate
 -----------------------
 ::
 
@@ -362,7 +362,7 @@ Revoke certificate
         -revoke ca/identity-ca/02.pem \
         -crl_reason superseded
 
-Create CRL
+5.8 Create CRL
 ---------------
 ::
 
@@ -371,10 +371,10 @@ Create CRL
         -out crl/identity-ca.crl
 
 
-Operate Component CA
+6. Operate Component CA
 ============================
 
-Create server request
+6.1 Create server request
 --------------------------
 ::
 
@@ -386,7 +386,7 @@ Create server request
 
 DN: C=SE, O=Blue AB, CN=www.blue.se
 
-Create server certificate
+6.2 Create server certificate
 ------------------------------
 ::
 
@@ -396,7 +396,7 @@ Create server certificate
         -out certs/blue.se.crt \
         -extensions server_ext
 
-Create client request
+6.3 Create client request
 --------------------------
 ::
 
@@ -407,7 +407,7 @@ Create client request
 
 DN: C=SE, O=Blue AB, CN=Blue Network Monitor
 
-Create client certificate
+6.4 Create client certificate
 ------------------------------
 ::
 
@@ -417,7 +417,7 @@ Create client certificate
         -out certs/monitor.crt \
         -extensions client_ext
 
-Create time stamping request
+6.5 Create time stamping request
 ---------------------------------
 ::
 
@@ -428,7 +428,7 @@ Create time stamping request
 
 DN: C=SE, O=Blue AB, CN=Blue Timestamp Service
 
-Create time stamping certificate
+6.6 Create time stamping certificate
 -------------------------------------
 ::
 
@@ -438,7 +438,7 @@ Create time stamping certificate
         -out certs/timestamp.crt \
         -extensions timestamp_ext
 
-Create OCSP-signing request
+6.7 Create OCSP-signing request
 --------------------------------
 ::
 
@@ -449,7 +449,7 @@ Create OCSP-signing request
 
 DN: C=SE, O=Blue AB, CN=Blue OCSP Responder
 
-Create OCSP-signing certificate
+6.8 Create OCSP-signing certificate
 ------------------------------------
 ::
 
@@ -459,7 +459,7 @@ Create OCSP-signing certificate
         -out certs/responder.crt \
         -extensions ocsp_ext
 
-Revoke certificate
+6.9 Revoke certificate
 -----------------------
 ::
 
@@ -468,7 +468,7 @@ Revoke certificate
         -revoke ca/component-ca/03.pem \
         -crl_reason superseded
 
-Create CRL
+6.10 Create CRL
 ----------------
 ::
 
@@ -477,10 +477,10 @@ Create CRL
         -out crl/component-ca.crl
 
 
-Publish Certificates
+7. Publish Certificates
 ========================
 
-Create DER certificate
+7.1 Create DER certificate
 ---------------------------
 ::
 
@@ -493,7 +493,7 @@ All published certificates must be in DER format.
 MIME type: application/pkix-cert.
 [:rfc:`2585#section-4.1`]
 
-Create DER CRL
+7.2 Create DER CRL
 -------------------
 ::
 
@@ -506,7 +506,7 @@ All published CRLs must be in DER format.
 MIME type: application/pkix-crl.
 [:rfc:`2585#section-4.2`]
 
-Create PKCS#7 bundle
+7.3 Create PKCS#7 bundle
 -------------------------
 ::
 

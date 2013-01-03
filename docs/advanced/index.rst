@@ -69,17 +69,17 @@ And one configuration file per CSR type:
 Please study the configuration files before you continue.
 
 
-Create Root CA
+1. Create Root CA
 ==================
 
-Create directories
+1.1 Create directories
 -----------------------
 ::
 
     mkdir -p ca/root-ca/private ca/root-ca/db crl certs
     chmod 700 ca/root-ca/private
 
-Create database
+1.2 Create database
 --------------------
 ::
 
@@ -88,7 +88,7 @@ Create database
     echo 01 > ca/root-ca/db/root-ca.crt.srl
     echo 01 > ca/root-ca/db/root-ca.crl.srl
 
-Create CA request
+1.3 Create CA request
 ----------------------
 ::
 
@@ -97,7 +97,7 @@ Create CA request
         -out ca/root-ca.csr \
         -keyout ca/root-ca/private/root-ca.key
 
-Create CA certificate
+1.4 Create CA certificate
 --------------------------
 ::
 
@@ -112,7 +112,7 @@ Create CA certificate
 
 .. _`RSA Labs`: http://www.rsa.com/rsalabs/node.asp?id=2004
 
-Create initial CRL
+1.5 Create initial CRL
 -----------------------
 ::
 
@@ -121,17 +121,17 @@ Create initial CRL
         -out crl/root-ca.crl
 
 
-Create Email CA
+2. Create Email CA
 ===================
 
-Create directories
+2.1 Create directories
 -----------------------
 ::
 
     mkdir -p ca/email-ca/private ca/email-ca/db crl certs
     chmod 700 ca/email-ca/private
 
-Create database
+2.2 Create database
 --------------------
 ::
 
@@ -140,7 +140,7 @@ Create database
     echo 01 > ca/email-ca/db/email-ca.crt.srl
     echo 01 > ca/email-ca/db/email-ca.crl.srl
 
-Create CA request
+2.3 Create CA request
 ----------------------
 ::
 
@@ -149,7 +149,7 @@ Create CA request
         -out ca/email-ca.csr \
         -keyout ca/email-ca/private/email-ca.key
 
-Create CA certificate
+2.4 Create CA certificate
 --------------------------
 ::
 
@@ -159,7 +159,7 @@ Create CA certificate
         -out ca/email-ca.crt \
         -extensions signing_ca_ext
 
-Create initial CRL
+2.5 Create initial CRL
 -----------------------
 ::
 
@@ -167,7 +167,7 @@ Create initial CRL
         -config etc/email-ca.conf \
         -out crl/email-ca.crl
 
-Create PEM bundle
+2.6 Create PEM bundle
 ----------------------
 ::
 
@@ -175,17 +175,17 @@ Create PEM bundle
         ca/email-ca-chain.pem
 
 
-Create Network CA
+3. Create Network CA
 =====================
 
-Create directories
+3.1 Create directories
 -----------------------
 ::
 
     mkdir -p ca/network-ca/private ca/network-ca/db crl certs
     chmod 700 ca/network-ca/private
 
-Create database
+3.2 Create database
 --------------------
 ::
 
@@ -194,7 +194,7 @@ Create database
     echo 01 > ca/network-ca/db/network-ca.crt.srl
     echo 01 > ca/network-ca/db/network-ca.crl.srl
 
-Create CA request
+3.3 Create CA request
 ----------------------
 ::
 
@@ -203,7 +203,7 @@ Create CA request
         -out ca/network-ca.csr \
         -keyout ca/network-ca/private/network-ca.key
 
-Create CA certificate
+3.4 Create CA certificate
 --------------------------
 ::
 
@@ -213,7 +213,7 @@ Create CA certificate
         -out ca/network-ca.crt \
         -extensions signing_ca_ext
 
-Create initial CRL
+3.5 Create initial CRL
 -----------------------
 ::
 
@@ -221,7 +221,7 @@ Create initial CRL
         -config etc/network-ca.conf \
         -out crl/network-ca.crl
 
-Create PEM bundle
+3.6 Create PEM bundle
 ----------------------
 ::
 
@@ -229,17 +229,17 @@ Create PEM bundle
         ca/network-ca-chain.pem
 
 
-Create Software CA
+4. Create Software CA
 ======================
 
-Create directories
+4.1 Create directories
 -----------------------
 ::
 
     mkdir -p ca/software-ca/private ca/software-ca/db crl certs
     chmod 700 ca/software-ca/private
 
-Create database
+4.2 Create database
 --------------------
 ::
 
@@ -248,7 +248,7 @@ Create database
     echo 01 > ca/software-ca/db/software-ca.crt.srl
     echo 01 > ca/software-ca/db/software-ca.crl.srl
 
-Create CA request
+4.3 Create CA request
 ----------------------
 ::
 
@@ -257,7 +257,7 @@ Create CA request
         -out ca/software-ca.csr \
         -keyout ca/software-ca/private/software-ca.key
 
-Create CA certificate
+4.4 Create CA certificate
 --------------------------
 ::
 
@@ -267,7 +267,7 @@ Create CA certificate
         -out ca/software-ca.crt \
         -extensions signing_ca_ext
 
-Create initial CRL
+4.5 Create initial CRL
 -----------------------
 ::
 
@@ -275,7 +275,7 @@ Create initial CRL
         -config etc/software-ca.conf \
         -out crl/software-ca.crl
 
-Create PEM bundle
+4.6 Create PEM bundle
 ----------------------
 ::
 
@@ -283,10 +283,10 @@ Create PEM bundle
         ca/software-ca-chain.pem
 
 
-Operate Email CA
+5. Operate Email CA
 ====================
 
-Create email request
+5.1 Create email request
 -------------------------
 ::
 
@@ -298,7 +298,7 @@ Create email request
 DN: C=NO, O=Fnord AS, CN=Fred Flintstone, emailAddress=fred\@fnord.no. Leave
 other fields blank.
 
-Create email certificate
+5.2 Create email certificate
 -----------------------------
 ::
 
@@ -308,7 +308,7 @@ Create email certificate
         -out certs/fred.crt \
         -extensions email_ext
 
-Create PKCS#12 bundle
+5.3 Create PKCS#12 bundle
 --------------------------
 ::
 
@@ -321,7 +321,7 @@ Create PKCS#12 bundle
         -certfile ca/email-ca-chain.pem \
         -out certs/fred.p12
 
-Revoke certificate
+5.4 Revoke certificate
 -----------------------
 ::
 
@@ -330,7 +330,7 @@ Revoke certificate
         -revoke ca/email-ca/01.pem \
         -crl_reason superseded
 
-Create CRL
+5.5 Create CRL
 ---------------
 ::
 
@@ -339,10 +339,10 @@ Create CRL
         -out crl/email-ca.crl
 
 
-Operate Network CA
+6. Operate Network CA
 ======================
 
-Create server request
+6.1 Create server request
 --------------------------
 ::
 
@@ -356,7 +356,7 @@ Create server request
 DN: C=NO, O=Fnord AS, CN=fnord.no. Note that the subjectAltName
 must be specified as environment variable.
 
-Create server certificate
+6.2 Create server certificate
 ------------------------------
 ::
 
@@ -366,7 +366,7 @@ Create server certificate
         -out certs/fnord.no.crt \
         -extensions server_ext
 
-Create PKCS#12 bundle
+6.3 Create PKCS#12 bundle
 --------------------------
 ::
 
@@ -379,7 +379,7 @@ Create PKCS#12 bundle
         -certfile ca/network-ca-chain.pem \
         -out certs/fnord.no.p12
 
-Create PEM bundle
+6.4 Create PEM bundle
 ----------------------
 ::
 
@@ -389,7 +389,7 @@ Create PEM bundle
 Most OpenSSL-based software accepts this format (e.g. Apache mod_ssl,
 stunnel).
 
-Create client request
+6.5 Create client request
 --------------------------
 ::
 
@@ -400,7 +400,7 @@ Create client request
 
 DN: C=NO, O=Telenor AS, OU=Support, CN=Barney Rubble, emailAddress=barney\@telenor.no
 
-Create client certificate
+6.6 Create client certificate
 ------------------------------
 ::
 
@@ -411,7 +411,7 @@ Create client certificate
         -policy extern_pol \
         -extensions client_ext
 
-Create PKCS#12 bundle
+6.7 Create PKCS#12 bundle
 --------------------------
 ::
 
@@ -424,7 +424,7 @@ Create PKCS#12 bundle
         -certfile ca/network-ca-chain.pem \
         -out certs/barney.p12
 
-Revoke certificate
+6.8 Revoke certificate
 -----------------------
 ::
 
@@ -433,7 +433,7 @@ Revoke certificate
         -revoke ca/network-ca/02.pem \
         -crl_reason superseded
 
-Create CRL
+6.9 Create CRL
 ---------------
 ::
 
@@ -442,10 +442,10 @@ Create CRL
         -out crl/network-ca.crl
 
 
-Operate Software CA
+7. Operate Software CA
 =======================
 
-Create code-signing request
+7.1 Create code-signing request
 --------------------------------
 ::
 
@@ -456,7 +456,7 @@ Create code-signing request
 
 DN: C=NO, O=Fnord AS, OU=Fnord Certificate Authority, CN=Fnord Software Certificate
 
-Create code-signing certificate
+7.2 Create code-signing certificate
 ------------------------------------
 ::
 
@@ -466,7 +466,7 @@ Create code-signing certificate
         -out certs/software.crt \
         -extensions codesign_ext
 
-Create PKCS#12 bundle
+7.3 Create PKCS#12 bundle
 --------------------------
 ::
 
@@ -479,7 +479,7 @@ Create PKCS#12 bundle
         -certfile ca/software-ca-chain.pem \
         -out certs/software.p12
 
-Revoke certificate
+7.4 Revoke certificate
 -----------------------
 ::
 
@@ -488,7 +488,7 @@ Revoke certificate
         -revoke ca/software-ca/01.pem \
         -crl_reason superseded
 
-Create CRL
+7.5 Create CRL
 ---------------
 ::
 
@@ -497,10 +497,10 @@ Create CRL
         -out crl/software-ca.crl
 
 
-Publish Certificates
+8. Publish Certificates
 ========================
 
-Create DER certificate
+8.1 Create DER certificate
 ---------------------------
 ::
 
@@ -513,7 +513,7 @@ All published certificates must be in DER format.
 MIME type: application/pkix-cert.
 [:rfc:`2585#section-4.1`]
 
-Create DER CRL
+8.2 Create DER CRL
 -------------------
 ::
 
@@ -526,7 +526,7 @@ All published CRLs must be in DER format.
 MIME type: application/pkix-crl.
 [:rfc:`2585#section-4.2`]
 
-Create PKCS#7 bundle
+8.3 Create PKCS#7 bundle
 -------------------------
 ::
 
