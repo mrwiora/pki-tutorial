@@ -16,7 +16,7 @@ each containing the following fields separated by tab characters:
 #. Certificate filename or literal string 'unknown'.
 #. Certificate distinguished name.
 
-The file is used as a certificate database by the ``openssl ca`` command.
+The ``openssl ca`` command uses this file as certificate database.
 
 Attribute File
 --------------
@@ -33,5 +33,10 @@ The ``openssl ca`` command uses two serial number files:
 #. Certificate serial number file.
 #. CRL number file.
 
-The files contain the next available serial numbers in hex.
+The files contain the next available serial number in hex.
 
+Limitations
+-----------
+
+#. The entire database must fit into memory.
+#. There are no provisions for concurrency handling.

@@ -18,11 +18,16 @@ Overview
 
 We assume an organisation named **Simple Inc**, controlling the domain
 simple.org.
+The organisation runs a small PKI to secure its email and intranet traffic.
 
-First, we create the Simple Root CA and its CA certificate.
+.. image:: ../_static/SimplePKILayout.png
+   :width: 467
+   :height: 394
+
+To construct the PKI, we first create the Simple Root CA and its CA certificate.
 We then use the root CA to create the Simple Signing CA.
-Once the CAs are in place we issue an email-protection certificate
-to employee Fred Flintstone, and a TLS-server certificate to the webserver at
+Once the CAs are in place, we issue an email-protection certificate
+to employee Fred Flintstone and a TLS-server certificate to the webserver at
 www.simple.org.
 Finally, we look at the output formats the CA needs to support and show
 how to view the contents of files we have created.
@@ -37,12 +42,9 @@ new directory::
     git clone https://bitbucket.org/stefanholek/pki-example-1
     cd pki-example-1
 
-Layout
-=============
 
-.. image:: ../_static/SimplePKILayout.png
-   :width: 467
-   :height: 394
+Configuration Files
+===================
 
 We use one configuration file per CA:
 
@@ -60,7 +62,7 @@ And one configuration file per CSR type:
    :titlesonly:
 
    email.conf
-   tls-server.conf
+   server.conf
 
 Please familiarize yourself with the configuration files before you continue.
 
@@ -88,7 +90,7 @@ the ``certs`` directory holds user certificates.
     echo 01 > ca/root-ca/db/root-ca.crl.srl
 
 The database files must exist before the ``openssl ca`` command can be used.
-Their contents are described in :doc:`../cadb`.
+The file contents are described in :doc:`../cadb`.
 
 1.3 Create CA request
 -----------------------
@@ -101,6 +103,7 @@ Their contents are described in :doc:`../cadb`.
 
 With the ``openssl req -new`` command we create a private key and a certificate
 signing request (CSR) for the root CA.
+You will be asked for a passphrase to protect the private key.
 The ``openssl req`` command takes its configuration from the [req] section of the
 :doc:`configuration file <root-ca.conf>`.
 
@@ -114,9 +117,10 @@ The ``openssl req`` command takes its configuration from the [req] section of th
         -out ca/root-ca.crt \
         -extensions root_ca_ext
 
-With the ``openssl ca`` command we issue a certificate based on the CSR. The root
-certificate is self-signed and serves as the starting point for all trust
-relationships in the PKI.
+With the ``openssl ca`` command we issue a root CA certificate based
+on the CSR.
+The root certificate is self-signed and serves as the starting point for
+all trust relationships in the PKI.
 The ``openssl ca`` command takes its configuration from the [ca] section of the
 :doc:`configuration file <root-ca.conf>`.
 
@@ -156,9 +160,10 @@ The contents of these files are described in :doc:`../cadb`.
         -keyout ca/signing-ca/private/signing-ca.key
 
 With the ``openssl req -new`` command we create a private key and a CSR for
-the signing CA. The configuration is read from the [req] section of the
-:doc:`signing CA configuration file <signing-ca.conf>`.
-Signing CAs issue only user certificates.
+the signing CA.
+You will be asked for a passphrase to protect the private key.
+The ``openssl req`` command takes its configuration from the [req] section of the
+:doc:`configuration file <signing-ca.conf>`.
 
 2.4 Create CA certificate
 ---------------------------
@@ -170,9 +175,11 @@ Signing CAs issue only user certificates.
         -out ca/signing-ca.crt \
         -extensions signing_ca_ext
 
-With the ``openssl ca`` command we create a certificate from the CSR. Note
-that it is the root CA that issues the signing CA certificate; the signing CA
-is *subordinate* to the root CA.
+With the ``openssl ca`` command we issue a certificate based on the CSR.
+The command takes its configuration from the [ca] section of the
+:doc:`configuration file <root-ca.conf>`.
+Note that it is the root CA that issues the signing CA certificate!
+Note also that we attach a different set of extensions.
 
 
 3. Operate Signing CA
@@ -188,11 +195,11 @@ is *subordinate* to the root CA.
         -keyout certs/fred.key
 
 With the ``openssl req -new`` command we create the private key and CSR for an
-email-protection (user) certificate. We use a :doc:`request configuration file
+email-protection certificate. We use a :doc:`request configuration file
 <email.conf>` specifically prepared for the task.
 When prompted enter these DN components:
 DC=org, DC=simple, O=Simple Inc, CN=Fred Flintstone,
-emailAddress=fred\@simple.org. Leave other fields blank.
+emailAddress=fred\@simple.org. Leave other fields empty.
 
 3.2 Create email certificate
 ------------------------------
@@ -215,13 +222,12 @@ A copy of the certificate is saved in the certificate archive under the name
 
     SAN=DNS:www.simple.org \
     openssl req -new \
-        -config etc/tls-server.conf \
+        -config etc/server.conf \
         -out certs/simple.org.csr \
-        -keyout certs/simple.org.key \
-        -nodes
+        -keyout certs/simple.org.key
 
-Next we create the private key and CSR for a TLS-server certificate using a
-different :doc:`request configuration file <tls-server.conf>`.
+Next we create the private key and CSR for a TLS-server certificate, using a
+different :doc:`request configuration file <server.conf>`.
 When prompted enter these DN components:
 DC=org, DC=simple, O=Simple Inc, CN=www.simple.org.
 Note that the subjectAltName must be specified as environment variable.
@@ -238,7 +244,7 @@ Note also that server keys typically have no passphrase.
         -extensions server_ext
 
 We use the signing CA to issue the TLS-server certificate. The certificate
-type is determined by the extensions we attach.
+type is defined by the extensions we attach.
 A copy of the certificate is saved in the certificate archive under the name
 ``ca/signing-ca/02.pem``.
 
@@ -285,6 +291,7 @@ A new CRL must be issued at regular intervals.
         -outform der
 
 All published certificates must be in DER format.
+Also see :doc:`../mime`.
 
 4.2 Create DER CRL
 --------------------
@@ -296,6 +303,7 @@ All published certificates must be in DER format.
         -outform der
 
 All published CRLs must be in DER format.
+Also see :doc:`../mime`.
 
 4.3 Create PKCS#7 bundle
 --------------------------
@@ -350,6 +358,9 @@ PEM bundles are created by concatenating other PEM-formatted files. Both
         -noout \
         -text
 
+The ``openssl req`` command can be used to display the contents of CSR files.
+The ``-noout`` and ``-text`` options select a human-readable output format.
+
 5.2 View certificate
 ----------------------
 ::
@@ -358,6 +369,10 @@ PEM bundles are created by concatenating other PEM-formatted files. Both
         -in certs/fred.crt \
         -noout \
         -text
+
+The ``openssl x509`` command can be used to display the contents of
+certificate files.
+The ``-noout`` and ``-text`` options have the same purpose as before.
 
 5.3 View CRL
 --------------
@@ -368,6 +383,10 @@ PEM bundles are created by concatenating other PEM-formatted files. Both
         -inform der \
         -noout \
         -text
+
+The ``openssl crl`` command can be used to view the contents of CRL files.
+Note that we specify ``-inform der`` because we have already converted the CRL
+in step 4.2.
 
 5.4 View PKCS#7 bundle
 ------------------------
@@ -380,6 +399,9 @@ PEM bundles are created by concatenating other PEM-formatted files. Both
         -text \
         -print_certs
 
+The ``openssl pkcs7`` comand can be used to display the contents of PKCS#7
+bundles.
+
 5.5 View PKCS#12 bundle
 -------------------------
 ::
@@ -388,6 +410,9 @@ PEM bundles are created by concatenating other PEM-formatted files. Both
         -in certs/fred.p12 \
         -nodes \
         -info
+
+The ``openssl pkcs12`` comand can be used to display the contents of PKCS#12
+bundles.
 
 
 References

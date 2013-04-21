@@ -16,20 +16,24 @@ The Advanced PKI consists of a root CA and a layer of subordinate CAs.
 Overview
 ========
 
-We assume a company named **Fnord AS**, controlling the domain fnord.no.
-It runs a three-pronged PKI to serve its security needs.
-To implement the PKI, we first create the Fnord Root CA and its CA
-certificate. We then use the root CA to create three signing CAs:
+We assume a company named **Green AS**, controlling the domain green.no.
+The company runs a three-pronged PKI to serve its security needs.
 
-#. Fnord Email CA
-#. Fnord Network CA
-#. Fnord Software CA
+.. image:: ../_static/AdvancedPKILayout.png
+   :width: 467
+   :height: 422
 
-Subsequently we show each CA in operation.
+To implement the PKI, we first create the Green Root CA and its CA
+certificate. We then use the root CA to create the three signing CAs:
+Green Email CA, Green TLS CA, and Green Software CA.
+The CAs in place, we proceed to show them in operation, issuing user
+certificates for email-protection, TLS-authentication, and code-signing
+purposes respectively.
 
 All commands are ready to be copy/pasted into a terminal session.
 When you have reached the end of this page, you will have built
-and operated a real-life PKI.
+a PKI with multiple signing CAs and issued 4 different types of user
+certificates.
 
 To get started, fetch the Advanced PKI example files and change into the
 new directory::
@@ -37,12 +41,9 @@ new directory::
     git clone https://bitbucket.org/stefanholek/pki-example-2
     cd pki-example-2
 
-Layout
-======
 
-.. image:: ../_static/AdvancedPKILayout.png
-   :width: 467
-   :height: 422
+Configuration Files
+===================
 
 We use one configuration file per CA:
 
@@ -52,7 +53,7 @@ We use one configuration file per CA:
 
    root-ca.conf
    email-ca.conf
-   network-ca.conf
+   tls-ca.conf
    software-ca.conf
 
 And one configuration file per CSR type:
@@ -62,9 +63,9 @@ And one configuration file per CSR type:
    :titlesonly:
 
    email.conf
-   tls-server.conf
-   tls-client.conf
-   code-signing.conf
+   server.conf
+   client.conf
+   codesign.conf
 
 Please study the configuration files before you continue.
 
@@ -79,6 +80,10 @@ Please study the configuration files before you continue.
     mkdir -p ca/root-ca/private ca/root-ca/db crl certs
     chmod 700 ca/root-ca/private
 
+The ``ca`` directory holds CA resources, the ``crl`` directory holds CRLs, and
+the ``certs`` directory holds user certificates.
+The directory layout stays the same throughout the tutorial.
+
 1.2 Create database
 --------------------
 ::
@@ -88,6 +93,9 @@ Please study the configuration files before you continue.
     echo 01 > ca/root-ca/db/root-ca.crt.srl
     echo 01 > ca/root-ca/db/root-ca.crl.srl
 
+The files must exist before the ``openssl ca`` command can be used.
+Also see :doc:`../cadb`.
+
 1.3 Create CA request
 ----------------------
 ::
@@ -96,6 +104,11 @@ Please study the configuration files before you continue.
         -config etc/root-ca.conf \
         -out ca/root-ca.csr \
         -keyout ca/root-ca/private/root-ca.key
+
+With the ``openssl req -new`` command we create a private key and a CSR for
+the root CA.
+The configuration is taken from the [req] section of the :doc:`root CA
+configuration file<root-ca.conf>`.
 
 1.4 Create CA certificate
 --------------------------
@@ -108,6 +121,9 @@ Please study the configuration files before you continue.
         -extensions root_ca_ext \
         -enddate 310101000000Z
 
+With the ``openssl ca`` command we create a self-signed root
+certificate from the CSR.
+Note that we specify an end date based on the key length.
 2048-bit RSA keys are deemed safe until 2030 (`RSA Labs`_).
 
 .. _`RSA Labs`: http://www.rsa.com/rsalabs/node.asp?id=2004
@@ -119,6 +135,8 @@ Please study the configuration files before you continue.
     openssl ca -gencrl \
         -config etc/root-ca.conf \
         -out crl/root-ca.crl
+
+With the ``openssl ca -gencrl`` command we generate an initial (empty) CRL.
 
 
 2. Create Email CA
@@ -149,6 +167,10 @@ Please study the configuration files before you continue.
         -out ca/email-ca.csr \
         -keyout ca/email-ca/private/email-ca.key
 
+We create a private key and a CSR for the email CA.
+The configuration is taken from the [req] section of the :doc:`email CA
+configuration file<email-ca.conf>`.
+
 2.4 Create CA certificate
 --------------------------
 ::
@@ -159,6 +181,9 @@ Please study the configuration files before you continue.
         -out ca/email-ca.crt \
         -extensions signing_ca_ext
 
+We use the root CA to issue the email CA certificate.
+Points if you noticed that -extensions could have been omitted.
+
 2.5 Create initial CRL
 -----------------------
 ::
@@ -167,6 +192,8 @@ Please study the configuration files before you continue.
         -config etc/email-ca.conf \
         -out crl/email-ca.crl
 
+We create an initial, empty CRL.
+
 2.6 Create PEM bundle
 ----------------------
 ::
@@ -174,34 +201,41 @@ Please study the configuration files before you continue.
     cat ca/email-ca.crt ca/root-ca.crt > \
         ca/email-ca-chain.pem
 
+The "cert chain" PEM format is supported by most OpenSSL-based software
+(e.g. Apache mod_ssl, stunnel).
 
-3. Create Network CA
+
+3. Create TLS CA
 =====================
 
 3.1 Create directories
 -----------------------
 ::
 
-    mkdir -p ca/network-ca/private ca/network-ca/db crl certs
-    chmod 700 ca/network-ca/private
+    mkdir -p ca/tls-ca/private ca/tls-ca/db crl certs
+    chmod 700 ca/tls-ca/private
 
 3.2 Create database
 --------------------
 ::
 
-    cp /dev/null ca/network-ca/db/network-ca.db
-    cp /dev/null ca/network-ca/db/network-ca.db.attr
-    echo 01 > ca/network-ca/db/network-ca.crt.srl
-    echo 01 > ca/network-ca/db/network-ca.crl.srl
+    cp /dev/null ca/tls-ca/db/tls-ca.db
+    cp /dev/null ca/tls-ca/db/tls-ca.db.attr
+    echo 01 > ca/tls-ca/db/tls-ca.crt.srl
+    echo 01 > ca/tls-ca/db/tls-ca.crl.srl
 
 3.3 Create CA request
 ----------------------
 ::
 
     openssl req -new \
-        -config etc/network-ca.conf \
-        -out ca/network-ca.csr \
-        -keyout ca/network-ca/private/network-ca.key
+        -config etc/tls-ca.conf \
+        -out ca/tls-ca.csr \
+        -keyout ca/tls-ca/private/tls-ca.key
+
+We create a private key and a CSR for the TLS CA.
+The configuration is taken from the [req] section of the :doc:`TLS CA
+configuration file<tls-ca.conf>`.
 
 3.4 Create CA certificate
 --------------------------
@@ -209,24 +243,30 @@ Please study the configuration files before you continue.
 
     openssl ca \
         -config etc/root-ca.conf \
-        -in ca/network-ca.csr \
-        -out ca/network-ca.crt \
+        -in ca/tls-ca.csr \
+        -out ca/tls-ca.crt \
         -extensions signing_ca_ext
+
+We use the root CA to issue the TLS CA certificate.
 
 3.5 Create initial CRL
 -----------------------
 ::
 
     openssl ca -gencrl \
-        -config etc/network-ca.conf \
-        -out crl/network-ca.crl
+        -config etc/tls-ca.conf \
+        -out crl/tls-ca.crl
+
+We create an empty CRL.
 
 3.6 Create PEM bundle
 ----------------------
 ::
 
-    cat ca/network-ca.crt ca/root-ca.crt > \
-        ca/network-ca-chain.pem
+    cat ca/tls-ca.crt ca/root-ca.crt > \
+        ca/tls-ca-chain.pem
+
+We create a certificate chain file.
 
 
 4. Create Software CA
@@ -257,6 +297,10 @@ Please study the configuration files before you continue.
         -out ca/software-ca.csr \
         -keyout ca/software-ca/private/software-ca.key
 
+We create a private key and a CSR for the software CA.
+The configuration is taken from the [req] section of the :doc:`software CA
+configuration file<software-ca.conf>`.
+
 4.4 Create CA certificate
 --------------------------
 ::
@@ -267,6 +311,8 @@ Please study the configuration files before you continue.
         -out ca/software-ca.crt \
         -extensions signing_ca_ext
 
+We use the root CA to issue the software CA certificate.
+
 4.5 Create initial CRL
 -----------------------
 ::
@@ -275,12 +321,16 @@ Please study the configuration files before you continue.
         -config etc/software-ca.conf \
         -out crl/software-ca.crl
 
+We create an empty CRL.
+
 4.6 Create PEM bundle
 ----------------------
 ::
 
     cat ca/software-ca.crt ca/root-ca.crt > \
         ca/software-ca-chain.pem
+
+We create a certificate chain file.
 
 
 5. Operate Email CA
@@ -295,8 +345,10 @@ Please study the configuration files before you continue.
         -out certs/fred.csr \
         -keyout certs/fred.key
 
-DN: C=NO, O=Fnord AS, CN=Fred Flintstone, emailAddress=fred\@fnord.no. Leave
-other fields blank.
+We create the private key and CSR for an email-protection certificate
+using a :doc:`request configuration file<email.conf>`.
+When prompted enter these DN components: C=NO, O=Green AS, CN=Fred
+Flintstone, emailAddress=fred\@green.no. Leave other fields empty.
 
 5.2 Create email certificate
 -----------------------------
@@ -308,18 +360,27 @@ other fields blank.
         -out certs/fred.crt \
         -extensions email_ext
 
+We use the email CA to issue Fred's email-protection certificate.
+A copy of the certificate is saved in the certificate archive under the name
+``ca/email-ca/01.pem`` (01 being the certificate serial number.)
+
 5.3 Create PKCS#12 bundle
 --------------------------
 ::
 
     openssl pkcs12 -export \
         -name "Fred Flintstone (Email Security)" \
-        -caname "Fnord Email CA" \
-        -caname "Fnord Root CA" \
+        -caname "Green Email CA" \
+        -caname "Green Root CA" \
         -inkey certs/fred.key \
         -in certs/fred.crt \
         -certfile ca/email-ca-chain.pem \
         -out certs/fred.p12
+
+We pack the private key, the certificate, and the CA chain into a PKCS#12
+bundle. This format (often with a .pfx extension) is used to distribute keys
+and certificates to end users.
+The friendly names help identify individual certificates within the bundle.
 
 5.4 Revoke certificate
 -----------------------
@@ -328,7 +389,9 @@ other fields blank.
     openssl ca \
         -config etc/email-ca.conf \
         -revoke ca/email-ca/01.pem \
-        -crl_reason superseded
+        -crl_reason keyCompromise
+
+When Fred's laptop goes missing, we revoke his certificate.
 
 5.5 Create CRL
 ---------------
@@ -338,78 +401,94 @@ other fields blank.
         -config etc/email-ca.conf \
         -out crl/email-ca.crl
 
+The next CRL contains the revoked certificate.
 
-6. Operate Network CA
+
+6. Operate TLS CA
 ======================
 
 6.1 Create server request
 --------------------------
 ::
 
-    SAN=DNS:fnord.no,DNS:www.fnord.no \
+    SAN=DNS:green.no,DNS:www.green.no \
     openssl req -new \
-        -config etc/tls-server.conf \
-        -out certs/fnord.no.csr \
-        -keyout certs/fnord.no.key \
-        -nodes
+        -config etc/server.conf \
+        -out certs/green.no.csr \
+        -keyout certs/green.no.key
 
-DN: C=NO, O=Fnord AS, CN=fnord.no. Note that the subjectAltName
-must be specified as environment variable.
+We create the private key and CSR for a TLS-server certificate
+using the appropriate :doc:`request configuration file<server.conf>`.
+When prompted enter these DN components: C=NO, O=Green AS, CN=www.green.no.
+The subjectAltName cannot be prompted for and must be specified as environment
+variable.
 
 6.2 Create server certificate
 ------------------------------
 ::
 
     openssl ca \
-        -config etc/network-ca.conf \
-        -in certs/fnord.no.csr \
-        -out certs/fnord.no.crt \
+        -config etc/tls-ca.conf \
+        -in certs/green.no.csr \
+        -out certs/green.no.crt \
         -extensions server_ext
+
+We use the TLS CA to issue the server certificate.
 
 6.3 Create PKCS#12 bundle
 --------------------------
 ::
 
     openssl pkcs12 -export \
-        -name "fnord.no (Network Component)" \
-        -caname "Fnord Network CA" \
-        -caname "Fnord Root CA" \
-        -inkey certs/fnord.no.key \
-        -in certs/fnord.no.crt \
-        -certfile ca/network-ca-chain.pem \
-        -out certs/fnord.no.p12
+        -name "green.no (Network Component)" \
+        -caname "Green TLS CA" \
+        -caname "Green Root CA" \
+        -inkey certs/green.no.key \
+        -in certs/green.no.crt \
+        -certfile ca/tls-ca-chain.pem \
+        -out certs/green.no.p12
+
+We pack the private key, the certificate, and the CA chain into a PKCS#12
+bundle for distribution.
 
 6.4 Create PEM bundle
 ----------------------
 ::
 
-    cat certs/fnord.no.key certs/fnord.no.crt > \
-        certs/fnord.no.pem
+    cat certs/green.no.key certs/green.no.crt > \
+        certs/green.no.pem
 
-Most OpenSSL-based software accepts this format (e.g. Apache mod_ssl,
-stunnel).
+The "key + cert" PEM format is supported by most OpenSSL-based software
+(e.g. Apache mod_ssl, stunnel).
 
 6.5 Create client request
 --------------------------
 ::
 
     openssl req -new \
-        -config etc/tls-client.conf \
+        -config etc/client.conf \
         -out certs/barney.csr \
         -keyout certs/barney.key
 
-DN: C=NO, O=Telenor AS, OU=Support, CN=Barney Rubble, emailAddress=barney\@telenor.no
+We create the private key and CSR for a TLS-client certificate
+using the :doc:`client request configuration file<client.conf>`.
+When prompted enter these DN components: C=NO, O=Telenor AS, OU=Support,
+CN=Barney Rubble, emailAddress=barney\@telenor.no.
 
 6.6 Create client certificate
 ------------------------------
 ::
 
     openssl ca \
-        -config etc/network-ca.conf \
+        -config etc/tls-ca.conf \
         -in certs/barney.csr \
         -out certs/barney.crt \
         -policy extern_pol \
         -extensions client_ext
+
+We use the TLS CA to issue Barney's client certificate. Note that we must
+specify the 'extern' naming policy because the DN would not satisfy the
+default 'match' policy.
 
 6.7 Create PKCS#12 bundle
 --------------------------
@@ -417,29 +496,35 @@ DN: C=NO, O=Telenor AS, OU=Support, CN=Barney Rubble, emailAddress=barney\@telen
 
     openssl pkcs12 -export \
         -name "Barney Rubble (Network Access)" \
-        -caname "Fnord Network CA" \
-        -caname "Fnord Root CA" \
+        -caname "Green TLS CA" \
+        -caname "Green Root CA" \
         -inkey certs/barney.key \
         -in certs/barney.crt \
-        -certfile ca/network-ca-chain.pem \
+        -certfile ca/tls-ca-chain.pem \
         -out certs/barney.p12
+
+We pack everything up into a PKCS#12 bundle for distribution.
 
 6.8 Revoke certificate
 -----------------------
 ::
 
     openssl ca \
-        -config etc/network-ca.conf \
-        -revoke ca/network-ca/02.pem \
-        -crl_reason superseded
+        -config etc/tls-ca.conf \
+        -revoke ca/tls-ca/02.pem \
+        -crl_reason affiliationChanged
+
+When the support contract ends, we revoke the certificate.
 
 6.9 Create CRL
 ---------------
 ::
 
     openssl ca -gencrl \
-        -config etc/network-ca.conf \
-        -out crl/network-ca.crl
+        -config etc/tls-ca.conf \
+        -out crl/tls-ca.crl
+
+The next CRL contains the revoked certificate.
 
 
 7. Operate Software CA
@@ -450,11 +535,15 @@ DN: C=NO, O=Telenor AS, OU=Support, CN=Barney Rubble, emailAddress=barney\@telen
 ::
 
     openssl req -new \
-        -config etc/code-signing.conf \
+        -config etc/codesign.conf \
         -out certs/software.csr \
-        -keyout certs/software.key
+        -keyout certs/software.key \
+        -nodes
 
-DN: C=NO, O=Fnord AS, OU=Fnord Certificate Authority, CN=Fnord Software Certificate
+We create the private key and CSR for a code-signing certificate
+using another :doc:`request configuration file<codesign.conf>`.
+When prompted enter these DN components: C=NO, O=Green AS, OU=Green
+Certificate Authority, CN=Green Software Certificate.
 
 7.2 Create code-signing certificate
 ------------------------------------
@@ -466,18 +555,22 @@ DN: C=NO, O=Fnord AS, OU=Fnord Certificate Authority, CN=Fnord Software Certific
         -out certs/software.crt \
         -extensions codesign_ext
 
+We use the software CA to issue the code-signing certificate.
+
 7.3 Create PKCS#12 bundle
 --------------------------
 ::
 
     openssl pkcs12 -export \
-        -name "Fnord Software Certificate" \
-        -caname "Fnord Software CA" \
-        -caname "Fnord Root CA" \
+        -name "Green Software Certificate" \
+        -caname "Green Software CA" \
+        -caname "Green Root CA" \
         -inkey certs/software.key \
         -in certs/software.crt \
         -certfile ca/software-ca-chain.pem \
         -out certs/software.p12
+
+We pack everything up into a PKCS#12 bundle for distribution.
 
 7.4 Revoke certificate
 -----------------------
@@ -486,7 +579,9 @@ DN: C=NO, O=Fnord AS, OU=Fnord Certificate Authority, CN=Fnord Software Certific
     openssl ca \
         -config etc/software-ca.conf \
         -revoke ca/software-ca/01.pem \
-        -crl_reason superseded
+        -crl_reason unspecified
+
+To complete the example, we revoke the software certificate.
 
 7.5 Create CRL
 ---------------
@@ -495,6 +590,8 @@ DN: C=NO, O=Fnord AS, OU=Fnord Certificate Authority, CN=Fnord Software Certific
     openssl ca -gencrl \
         -config etc/software-ca.conf \
         -out crl/software-ca.crl
+
+The next CRL contains the revoked certificate.
 
 
 8. Publish Certificates
@@ -531,8 +628,8 @@ MIME type: application/pkix-crl.
 ::
 
     openssl crl2pkcs7 -nocrl \
-        -certfile ca/network-ca-chain.pem \
-        -out ca/network-ca-chain.p7c \
+        -certfile ca/tls-ca-chain.pem \
+        -out ca/tls-ca-chain.p7c \
         -outform der
 
 PKCS#7 is used to bundle two or more certificates.

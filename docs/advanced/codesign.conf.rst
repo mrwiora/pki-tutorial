@@ -4,7 +4,7 @@ Code-Signing Certificate Request Configuration File
 
 .. highlight:: openssl
 
-.. literalinclude:: ../../pki-example-2/etc/code-signing.conf
+.. literalinclude:: ../../pki-example-2/etc/codesign.conf
 
 References
 ==========

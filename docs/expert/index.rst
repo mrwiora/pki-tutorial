@@ -16,14 +16,23 @@ Overview
 ========
 
 We assume a company named **Blue AB**, controlling the domain blue.se.
-The company operates a flexible, multi-level PKI. To construct the PKI, we
-start with the Blue Root CA followed by the intermediate Network CA.
-We then create the two signing CAs and proceed to issue
-user certificates.
+The company operates a flexible, multi-level PKI.
+
+.. image:: ../_static/ExpertPKILayout.png
+   :width: 467
+   :height: 421
+
+To construct the PKI, we
+start with the Blue Root CA followed by the intermediate Blue Network CA.
+We then use the Network CA to create the two signing CAs: Blue Identity CA and
+Blue Component CA.
+With the CAs in place, we proceed to issue certificates to users and network
+components respectively.
 
 All commands are ready to be copy/pasted into a terminal session.
-When you have reached the end of this page, you will have created and
-operated a real-world PKI.
+When you have reached the end of this page, you will have built
+a PKI with both intermediate and signing CAs and issued all major types of
+user certificates.
 
 To get started, fetch the Expert PKI example files and change into the new
 directory::
@@ -31,12 +40,8 @@ directory::
     git clone https://bitbucket.org/stefanholek/pki-example-3
     cd pki-example-3
 
-Layout
-======
-
-.. image:: ../_static/ExpertPKILayout.png
-   :width: 465
-   :height: 420
+Configuration Files
+===================
 
 We use one configuration file per CA:
 
@@ -57,10 +62,10 @@ And one configuration file per CSR type:
 
    identity.conf
    encryption.conf
-   tls-server.conf
-   tls-client.conf
-   timestamping.conf
-   ocsp-signing.conf
+   server.conf
+   client.conf
+   timestamp.conf
+   ocspsign.conf
 
 Please study the configuration files before you continue.
 
@@ -155,6 +160,8 @@ Please study the configuration files before you continue.
         -out ca/network-ca.crt \
         -extensions intermediate_ca_ext \
         -enddate 310101000000Z
+
+Intermediate CAs should have the same lifetime as their root CA.
 
 2.5 Create initial CRL
 -----------------------
@@ -380,7 +387,7 @@ DN: C=SE, O=Blue AB, CN=Fred Flintstone, emailAddress=fred\@blue.se
 
     SAN=DNS:blue.se,DNS:www.blue.se \
     openssl req -new \
-        -config etc/tls-server.conf \
+        -config etc/server.conf \
         -out certs/blue.se.csr \
         -keyout certs/blue.se.key
 
@@ -401,7 +408,7 @@ DN: C=SE, O=Blue AB, CN=www.blue.se
 ::
 
     openssl req -new \
-        -config etc/tls-client.conf \
+        -config etc/client.conf \
         -out certs/monitor.csr \
         -keyout certs/monitor.key
 
@@ -422,9 +429,9 @@ DN: C=SE, O=Blue AB, CN=Blue Network Monitor
 ::
 
     openssl req -new \
-        -config etc/timestamping.conf \
-        -out certs/timestamp.csr \
-        -keyout certs/timestamp.key
+        -config etc/timestamp.conf \
+        -out certs/timer.csr \
+        -keyout certs/timer.key
 
 DN: C=SE, O=Blue AB, CN=Blue Timestamp Service
 
@@ -434,8 +441,8 @@ DN: C=SE, O=Blue AB, CN=Blue Timestamp Service
 
     openssl ca \
         -config etc/component-ca.conf \
-        -in certs/timestamp.csr \
-        -out certs/timestamp.crt \
+        -in certs/timer.csr \
+        -out certs/timer.crt \
         -extensions timestamp_ext
 
 6.7 Create OCSP-signing request
@@ -443,7 +450,7 @@ DN: C=SE, O=Blue AB, CN=Blue Timestamp Service
 ::
 
     openssl req -new \
-        -config etc/ocsp-signing.conf \
+        -config etc/ocspsign.conf \
         -out certs/responder.csr \
         -keyout certs/responder.key
 
@@ -457,7 +464,7 @@ DN: C=SE, O=Blue AB, CN=Blue OCSP Responder
         -config etc/component-ca.conf \
         -in certs/responder.csr \
         -out certs/responder.crt \
-        -extensions ocsp_ext
+        -extensions ocspsign_ext
 
 6.9 Revoke certificate
 -----------------------

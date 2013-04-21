@@ -44,15 +44,15 @@ scheme devised by the telecom industry, these mechanisms come with a fair
 amount of administrative overhead.
 
 One thing to keep in mind is that X.509 is not an application,
-but a specification of upon which applications like
+but a specification upon which applications like
 Secure Multipurpose Internet Mail Extensions (S/MIME) and
 Transport Layer Security (TLS) are based.
-The provided building blocks are very generic and derive most of
+The building blocks are very generic and derive most of
 their meaning from the relations that exist/are established between them.
 It's called an infrastructure for a reason.
 
 Process
-----------
+-----------
 
 .. image:: _static/PKIProcess.png
    :width: 465
@@ -62,8 +62,8 @@ Process
 #. The CA issues a certificate based on the CSR and returns it to the requestor.
 #. Should the certificate at some point be revoked, the CA adds it to its CRL.
 
-Terms
-------------
+Components
+---------------
 
 Public Key Infrastructure (PKI)
     Security architecture where trust is conveyed through the signature
@@ -87,7 +87,19 @@ Certificate Revocation List (CRL)
 Certification Practice Statement (CPS)
     Document describing structure and processes of a CA.
 
-Certificates
+CA Types
+--------
+
+Root CA
+    CA at the root of a PKI hierarchy. Issues only CA certificates.
+
+Intermediate CA
+    CA below the root CA but not a signing CA. Issues only CA certificates.
+
+Signing CA
+    CA at the bottom of a PKI hierarchy. Issues only user certificates.
+
+Certificate Types
 -----------------
 
 CA Certificate
@@ -108,8 +120,8 @@ User Certificate
 
 .. rubric:: Footnotes
 
-.. [#] The RFC classifies any CA-signs-CA scenario as cross-certification, to
-       distinguish it from self-issuing.
+.. [#] The RFC classifies any CA-signs-CA scenario as cross-certification,
+       to distinguish it from self-issuing.
        Outside of specs however, the term normally only refers to inter-PKI
        cross-certification.
 
@@ -127,12 +139,14 @@ Distinguished Encoding Rules (DER)
 
 Examples
 ================
-
 The examples are meant to be done in order, each providing the basis for
 the ones that follow.
 They are deliberately low on prose, we prefer to let the configuration files
 and command lines speak for themselves.
-Please use the links at the bottom of each page for details!
+
+At the bottom of each page is a reference section containing links to
+relevant parts of the OpenSSL documentation. Please use these links for
+details on command line options and configuration settings.
 
 Note: You need at least OpenSSL 1.0.1. Check with::
 
@@ -157,7 +171,8 @@ Advanced PKI
 In this example we create a larger setup, consisting of a root CA and three
 signing CAs.
 We use the CAs to issue 4 different types of user certificates.
-We also encounter more certificate extensions.
+We also encounter two new certificate extensions: authorityInfoAccess and
+crlDistributionPoints.
 
 .. toctree::
    :maxdepth: 1
@@ -171,7 +186,7 @@ Expert PKI
 In this example we create a 3-tier CA hierarchy: One root CA, one intermediate
 CA, and two signing CAs.
 We use the CAs to issue 6 types of user certificates.
-We revisit the certificatePolicies extension and define custom policy OIDs.
+We introduce certificate policies and the certificatePolicies extension.
 We also show how to configure an OCSP responder.
 
 .. toctree::

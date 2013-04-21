@@ -45,7 +45,7 @@ The list of MIME types and file extensions however is easily twice as long::
 Where do they come from?
 
 #. pkcs8 and the .p8 extension are defined in :rfc:`5958#section-7.1`.
-   The .key extension is OpenSSL practice. [#]_
+   The .key extension is Apache mod_ssl practice. [#]_
 
 #. pkcs10 and the .p10 extension are defined in :rfc:`5967#section-3.1`.
    The .csr extension is Apache mod_ssl practice.
@@ -60,7 +60,7 @@ Where do they come from?
    File contents are the same as with pkix-cert: a DER encoded X.509 certificate.
    [:rfc:`5280#section-4`] [#]_
 
-#. x-x509-user-cert was introduced by Netscape at the same time. It is
+#. x-x509-user-cert was also introduced by Netscape. It is
    used to install certificates into (some) browsers.
 
 #. x-pkcs7-crl was introduced by Netscape as well. Note that the .crl
@@ -88,7 +88,7 @@ Where do they come from?
        should be published on the Internet. In particular, you will never
        want to expose files containing private keys (.p8, .p12).
 
-.. [#] Since OpenSSL defaults to PEM encoding, virtually all open-source
-       software uses PEM encoded .crt files locally. See Apache mod_ssl,
+.. [#] Since OpenSSL defaults to PEM encoding, almost all open-source
+       software uses PEM formatted .crt files locally. See Apache mod_ssl,
        stunnel, etc.
 

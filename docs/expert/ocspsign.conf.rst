@@ -4,7 +4,7 @@ OCSP-Signing Certificate Request Configuration File
 
 .. highlight:: openssl
 
-.. literalinclude:: ../../pki-example-3/etc/ocsp-signing.conf
+.. literalinclude:: ../../pki-example-3/etc/ocspsign.conf
 
 References
 ==========

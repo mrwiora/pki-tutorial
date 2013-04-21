@@ -4,7 +4,7 @@ Time Stamping Certificate Request Configuration File
 
 .. highlight:: openssl
 
-.. literalinclude:: ../../pki-example-3/etc/timestamping.conf
+.. literalinclude:: ../../pki-example-3/etc/timestamp.conf
 
 References
 ==========

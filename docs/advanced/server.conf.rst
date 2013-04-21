@@ -4,7 +4,7 @@ TLS Server Certificate Request Configuration File
 
 .. highlight:: openssl
 
-.. literalinclude:: ../../pki-example-1/etc/tls-server.conf
+.. literalinclude:: ../../pki-example-2/etc/server.conf
 
 References
 ==========

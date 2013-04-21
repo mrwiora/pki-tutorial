@@ -1,17 +1,29 @@
 @import url('nature.css');
 
-a tt.xref {
-    color: #005b81;
-}
-
+/* fix nature.css */
 h1 a tt.xref {
     color: black;
+}
+
+a tt.xref {
+    color: #005b81;
 }
 
 a.reference em {
     font-style: normal;
 }
 
+/* toc */
+div.sphinxsidebar ul {
+    margin-right: 4px;
+}
+
+/* previous/next topic */
+div.sphinxsidebar p {
+    padding-right: 10px;
+}
+
+/* tables */
 table.docutils {
     width: 60%;
     margin-top: 1em;
@@ -23,36 +35,31 @@ table.docutils td {
     padding: 1px 0px;
 }
 
-div#certificates p.rubric,
-div#mime-types p.rubric {
+/* footnotes */
+div p.rubric {
     margin-top: 1em;
 }
 
+/* image */
 div#process img {
     margin-top: 0.5em;
-    margin-bottom: 0em;
 }
 
-div#layout img {
-    margin-top: 0.75em;
-    margin-bottom: 0.5em;
-}
-
+/* toc trees */
 div#examples ul,
 div#appendixes ul {
+    list-style-type: none;
     padding-left: 0px;
     margin-left: 0px;
-    list-style-type: none;
 }
 
+/* reference links */
 div#references dt a.reference {
     font-weight: bold;
 }
 
-div.sphinxsidebar ul {
-    margin-right: 4px;
+/*
+div.highlight span.c {
+    color: #408090;
 }
-
-div.sphinxsidebar p {
-    padding-right: 4px;
-}
+*/
