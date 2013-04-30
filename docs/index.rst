@@ -144,7 +144,7 @@ the ones that follow.
 They are deliberately low on prose, we prefer to let the configuration files
 and command lines speak for themselves.
 
-At the bottom of each page is a reference section containing links to
+At the bottom of each page is a reference section, containing links to
 relevant parts of the OpenSSL documentation. Please use these links for
 details on command line options and configuration settings.
 
