@@ -312,7 +312,7 @@ Also see :doc:`../mime`.
     openssl crl2pkcs7 -nocrl \
         -certfile ca/signing-ca.crt \
         -certfile ca/root-ca.crt \
-        -out certs/signing-ca-chain.p7c \
+        -out ca/signing-ca-chain.p7c \
         -outform der
 
 PKCS#7 is used to bundle two or more certificates. The format would
