@@ -399,7 +399,7 @@ in step 4.2.
         -text \
         -print_certs
 
-The ``openssl pkcs7`` comand can be used to display the contents of PKCS#7
+The ``openssl pkcs7`` command can be used to display the contents of PKCS#7
 bundles.
 
 5.5 View PKCS#12 bundle
@@ -411,7 +411,7 @@ bundles.
         -nodes \
         -info
 
-The ``openssl pkcs12`` comand can be used to display the contents of PKCS#12
+The ``openssl pkcs12`` command can be used to display the contents of PKCS#12
 bundles.
 
 
