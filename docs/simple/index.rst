@@ -290,7 +290,7 @@ A new CRL must be issued at regular intervals.
         -out certs/fred.cer \
         -outform der
 
-All published certificates must be in DER format.
+All published certificates must be in DER format [:rfc:`2585#section-3`].
 Also see :doc:`../mime`.
 
 4.2 Create DER CRL
@@ -302,7 +302,7 @@ Also see :doc:`../mime`.
         -out crl/signing-ca.crl \
         -outform der
 
-All published CRLs must be in DER format.
+All published CRLs must be in DER format [:rfc:`2585#section-3`].
 Also see :doc:`../mime`.
 
 4.3 Create PKCS#7 bundle
