@@ -195,7 +195,6 @@ We also show how to configure an OCSP responder.
 
    expert/index
 
-
 Appendixes
 ==========
 
@@ -221,6 +220,17 @@ This section examines the format of the CA database.
    :titlesonly:
 
    cadb
+
+X.509v3 Extensions
+-----------------------
+
+This section discusses the certificate extensions used.
+
+.. toctree::
+   :maxdepth: 1
+   :titlesonly:
+
+   extensions
 
 References
 ==========
