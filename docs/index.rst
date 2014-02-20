@@ -144,9 +144,9 @@ the ones that follow.
 They are deliberately low on prose, we prefer to let the configuration files
 and command lines speak for themselves.
 
-At the bottom of each page is a reference section, containing links to
-relevant parts of the OpenSSL documentation. Please use these links for
-details on command line options and configuration settings.
+You will find a reference section at the bottom of each page, with
+links to relevant parts of the OpenSSL documentation. Please use the links
+for details on command line options and configuration file settings.
 
 Note: You need at least OpenSSL 1.0.1. Check with::
 

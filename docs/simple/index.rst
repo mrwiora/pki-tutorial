@@ -226,7 +226,7 @@ A copy of the certificate is saved in the certificate archive under the name
         -out certs/simple.org.csr \
         -keyout certs/simple.org.key
 
-Next we create the private key and CSR for a TLS-server certificate, using a
+Next we create the private key and CSR for a TLS-server certificate using a
 different :doc:`request configuration file <server.conf>`.
 When prompted enter these DN components:
 DC=org, DC=simple, O=Simple Inc, CN=www.simple.org.

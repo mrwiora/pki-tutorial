@@ -26,7 +26,7 @@ The company runs a three-pronged PKI to serve its security needs.
 To implement the PKI, we first create the Green Root CA and its CA
 certificate. We then use the root CA to create the three signing CAs:
 Green Email CA, Green TLS CA, and Green Software CA.
-The CAs in place, we proceed to show them in operation, issuing user
+The CAs in place we proceed to show them in operation, issuing user
 certificates for email-protection, TLS-authentication, and code-signing
 purposes respectively.
 
@@ -123,6 +123,8 @@ configuration file<root-ca.conf>`.
 
 With the ``openssl ca`` command we create a self-signed root
 certificate from the CSR.
+The configuration is taken from the [ca] section of the :doc:`root CA
+configuration file<root-ca.conf>`.
 Note that we specify an end date based on the key length.
 2048-bit RSA keys are deemed safe until 2030 (`RSA Labs`_).
 
@@ -362,7 +364,7 @@ Flintstone, emailAddress=fred\@green.no. Leave other fields empty.
 
 We use the email CA to issue Fred's email-protection certificate.
 A copy of the certificate is saved in the certificate archive under the name
-``ca/email-ca/01.pem`` (01 being the certificate serial number.)
+``ca/email-ca/01.pem`` (01 being the certificate serial number in hex.)
 
 5.3 Create PKCS#12 bundle
 --------------------------
