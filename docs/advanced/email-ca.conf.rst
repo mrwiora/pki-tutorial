@@ -14,4 +14,3 @@ References
 * http://www.openssl.org/docs/apps/req.html#CONFIGURATION_FILE_FORMAT
 * http://www.openssl.org/docs/apps/ca.html#CONFIGURATION_FILE_OPTIONS
 * http://www.openssl.org/docs/apps/x509v3_config.html
-* http://www.oid-info.com/
