@@ -530,11 +530,11 @@ MIME type: application/pkcs7-mime.
 References
 ======================
 
-* http://openssl.org/docs/apps/req.html
-* http://openssl.org/docs/apps/ca.html
-* http://openssl.org/docs/apps/x509.html
-* http://openssl.org/docs/apps/crl.html
-* http://openssl.org/docs/apps/crl2pkcs7.html
-* http://openssl.org/docs/apps/pkcs7.html
-* http://openssl.org/docs/apps/pkcs12.html
+* http://www.openssl.org/docs/apps/req.html
+* http://www.openssl.org/docs/apps/ca.html
+* http://www.openssl.org/docs/apps/x509.html
+* http://www.openssl.org/docs/apps/crl.html
+* http://www.openssl.org/docs/apps/crl2pkcs7.html
+* http://www.openssl.org/docs/apps/pkcs7.html
+* http://www.openssl.org/docs/apps/pkcs12.html
 
