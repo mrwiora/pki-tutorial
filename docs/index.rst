@@ -256,7 +256,7 @@ References
     CA/Browser Forum Baseline Requirements for the Issuance and Management
     of Publicly-Trusted Certificates
 
-`X.509 Recommendation <http://www.itu.int/rec/dologin_pub.asp?lang=e&id=T-REC-X.509-200811-I!!PDF-E&type=items>`_ [pdf, direct download]
+`X.509 Recommendation <http://www.itu.int/rec/dologin_pub.asp?lang=e&id=T-REC-X.509-200811-S!!PDF-E&type=items>`_ [pdf, direct download]
     ITU-T X.509 Public-Key and Attribute Certificate Frameworks Recommendation
 
 `OpenSSL TEST CA <http://www.carillon.ca/library/data/openssl_testca_howto_1.3.pdf>`_ [pdf, direct download]
