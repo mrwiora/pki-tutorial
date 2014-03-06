@@ -119,7 +119,7 @@ configuration file<root-ca.conf>`.
         -in ca/root-ca.csr \
         -out ca/root-ca.crt \
         -extensions root_ca_ext \
-        -enddate 20310101000000Z
+        -enddate 20301231235959Z
 
 With the ``openssl ca`` command we create a self-signed root
 certificate from the CSR.

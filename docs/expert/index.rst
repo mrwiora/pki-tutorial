@@ -107,7 +107,7 @@ Please study the configuration files before you continue.
         -in ca/root-ca.csr \
         -out ca/root-ca.crt \
         -extensions root_ca_ext \
-        -enddate 20310101000000Z
+        -enddate 20301231235959Z
 
 2048-bit RSA keys are deemed safe until 2030 (`RSA Labs`_).
 
@@ -159,7 +159,7 @@ Please study the configuration files before you continue.
         -in ca/network-ca.csr \
         -out ca/network-ca.crt \
         -extensions intermediate_ca_ext \
-        -enddate 20310101000000Z
+        -enddate 20301231235959Z
 
 Intermediate CAs should have the same lifetime as their root CA.
 
