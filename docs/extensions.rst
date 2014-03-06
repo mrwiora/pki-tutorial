@@ -57,7 +57,7 @@ Together with keyUsage and basicConstraints this extension controls how the
 certificate may be used.
 Defined purposes are: ``emailProtection``, ``serverAuth``, ``clientAuth``,
 ``codeSigning``, ``timeStamping``, and ``OCSPSigning``.
-The latter three must be marked critical.
+The latter three MUST be marked critical.
 
 subjectAltName
 ==============
@@ -112,7 +112,7 @@ Certificate policies are labels attached to the certificate
 path: To be valid, a policy must be present in every certificate
 along the path to the root CA. A policy
 has no meaning outside of what the PKI-owner wants it to
-mean. The extension could be marked critical, but usually
+mean. The extension MAY be marked critical, but usually
 isn't out of compatibility concerns.
 
 Self-signed root certificates are not considered in the policy
