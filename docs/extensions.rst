@@ -14,9 +14,9 @@ c. Carry other attributes associated with a certificate, CSR, or CRL.
 
 The tutorial uses 9 different extensions which are discussed below.
 For further details please refer to
-the `OpenSSL documentation <http://www.openssl.org/docs/apps/x509v3_config.html>`_
+:rfc:`5280#section-4.2`
 and
-:rfc:`5280#section-4.2`.
+the `OpenSSL documentation <http://www.openssl.org/docs/apps/x509v3_config.html>`_.
 
 keyUsage
 ========
