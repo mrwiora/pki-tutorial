@@ -161,7 +161,7 @@ Please study the configuration files before you continue.
         -extensions intermediate_ca_ext \
         -enddate 20301231235959Z
 
-Intermediate CAs should have the same lifetime as their root CA.
+Intermediate CAs should have the same life span as their root CAs.
 
 2.5 Create initial CRL
 -----------------------
@@ -464,7 +464,11 @@ DN: C=SE, O=Blue AB, CN=Blue OCSP Responder
         -config etc/component-ca.conf \
         -in certs/responder.csr \
         -out certs/responder.crt \
-        -extensions ocspsign_ext
+        -extensions ocspsign_ext \
+        -days 14
+
+OCSP-signing certificates are not CRL checked and should only have a
+short life span.
 
 6.9 Revoke certificate
 -----------------------
@@ -472,7 +476,7 @@ DN: C=SE, O=Blue AB, CN=Blue OCSP Responder
 
     openssl ca \
         -config etc/component-ca.conf \
-        -revoke ca/component-ca/03.pem \
+        -revoke ca/component-ca/02.pem \
         -crl_reason superseded
 
 6.10 Create CRL
