@@ -221,17 +221,6 @@ This section examines the format of the CA database.
 
    cadb
 
-X.509v3 Extensions
------------------------
-
-This section discusses the certificate extensions used.
-
-.. toctree::
-   :maxdepth: 1
-   :titlesonly:
-
-   extensions
-
 References
 ==========
 
