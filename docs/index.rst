@@ -195,7 +195,7 @@ We also show how to configure an OCSP responder.
 
    expert/index
 
-Appendixes
+Appendices
 ==========
 
 MIME Types
