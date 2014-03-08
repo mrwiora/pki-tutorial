@@ -1,9 +1,12 @@
 [submodule "pki-example-1"]
 	path = pki-example-1
 	url = https://bitbucket.org/stefanholek/pki-example-1
+	ignore = dirty
 [submodule "pki-example-2"]
 	path = pki-example-2
 	url = https://bitbucket.org/stefanholek/pki-example-2
+	ignore = dirty
 [submodule "pki-example-3"]
 	path = pki-example-3
 	url = https://bitbucket.org/stefanholek/pki-example-3
+	ignore = dirty
