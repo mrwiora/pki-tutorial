@@ -381,8 +381,8 @@ DN: C=SE, O=Blue AB, CN=Fred Flintstone, emailAddress=fred\@blue.se
 6. Operate Component CA
 ============================
 
-6.1 Create server request
---------------------------
+6.1 Create TLS server request
+-----------------------------
 ::
 
     SAN=DNS:blue.se,DNS:www.blue.se \
@@ -393,8 +393,8 @@ DN: C=SE, O=Blue AB, CN=Fred Flintstone, emailAddress=fred\@blue.se
 
 DN: C=SE, O=Blue AB, CN=www.blue.se
 
-6.2 Create server certificate
-------------------------------
+6.2 Create TLS server certificate
+---------------------------------
 ::
 
     openssl ca \
@@ -403,8 +403,8 @@ DN: C=SE, O=Blue AB, CN=www.blue.se
         -out certs/blue.se.crt \
         -extensions server_ext
 
-6.3 Create client request
---------------------------
+6.3 Create TLS client request
+-----------------------------
 ::
 
     openssl req -new \
@@ -414,8 +414,8 @@ DN: C=SE, O=Blue AB, CN=www.blue.se
 
 DN: C=SE, O=Blue AB, CN=Blue Network Monitor
 
-6.4 Create client certificate
-------------------------------
+6.4 Create TLS client certificate
+---------------------------------
 ::
 
     openssl ca \
@@ -424,7 +424,7 @@ DN: C=SE, O=Blue AB, CN=Blue Network Monitor
         -out certs/monitor.crt \
         -extensions client_ext
 
-6.5 Create time stamping request
+6.5 Create time-stamping request
 ---------------------------------
 ::
 
@@ -435,7 +435,7 @@ DN: C=SE, O=Blue AB, CN=Blue Network Monitor
 
 DN: C=SE, O=Blue AB, CN=Blue Timestamp Service
 
-6.6 Create time stamping certificate
+6.6 Create time-stamping certificate
 -------------------------------------
 ::
 

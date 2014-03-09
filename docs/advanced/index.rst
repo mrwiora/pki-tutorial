@@ -409,8 +409,8 @@ The next CRL contains the revoked certificate.
 6. Operate TLS CA
 ======================
 
-6.1 Create server request
---------------------------
+6.1 Create TLS server request
+-----------------------------
 ::
 
     SAN=DNS:green.no,DNS:www.green.no \
@@ -425,8 +425,8 @@ When prompted enter these DN components: C=NO, O=Green AS, CN=www.green.no.
 The subjectAltName cannot be prompted for and must be specified as environment
 variable.
 
-6.2 Create server certificate
-------------------------------
+6.2 Create TLS server certificate
+---------------------------------
 ::
 
     openssl ca \
@@ -453,18 +453,8 @@ We use the TLS CA to issue the server certificate.
 We pack the private key, the certificate, and the CA chain into a PKCS#12
 bundle for distribution.
 
-6.4 Create PEM bundle
-----------------------
-::
-
-    cat certs/green.no.key certs/green.no.crt > \
-        certs/green.no.pem
-
-The "key + cert" PEM format is supported by most OpenSSL-based software
-(e.g. Apache mod_ssl, stunnel).
-
-6.5 Create client request
---------------------------
+6.4 Create TLS client request
+-----------------------------
 ::
 
     openssl req -new \
@@ -477,8 +467,8 @@ using the :doc:`client request configuration file<client.conf>`.
 When prompted enter these DN components: C=NO, O=Telenor AS, OU=Support,
 CN=Barney Rubble, emailAddress=barney\@telenor.no.
 
-6.6 Create client certificate
-------------------------------
+6.5 Create TLS client certificate
+---------------------------------
 ::
 
     openssl ca \
@@ -492,7 +482,7 @@ We use the TLS CA to issue Barney's client certificate. Note that we must
 specify the 'extern' naming policy because the DN would not satisfy the
 default 'match' policy.
 
-6.7 Create PKCS#12 bundle
+6.6 Create PKCS#12 bundle
 --------------------------
 ::
 
@@ -507,7 +497,7 @@ default 'match' policy.
 
 We pack everything up into a PKCS#12 bundle for distribution.
 
-6.8 Revoke certificate
+6.7 Revoke certificate
 -----------------------
 ::
 
@@ -518,7 +508,7 @@ We pack everything up into a PKCS#12 bundle for distribution.
 
 When the support contract ends, we revoke the certificate.
 
-6.9 Create CRL
+6.8 Create CRL
 ---------------
 ::
 

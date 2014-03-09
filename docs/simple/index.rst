@@ -216,8 +216,8 @@ certificate type is defined by the extensions we attach.
 A copy of the certificate is saved in the certificate archive under the name
 ``ca/signing-ca/01.pem`` (01 being the certificate serial number in hex.)
 
-3.3 Create server request
----------------------------
+3.3 Create TLS server request
+-----------------------------
 ::
 
     SAN=DNS:www.simple.org \
@@ -226,15 +226,15 @@ A copy of the certificate is saved in the certificate archive under the name
         -out certs/simple.org.csr \
         -keyout certs/simple.org.key
 
-Next we create the private key and CSR for a TLS-server certificate using a
-different :doc:`request configuration file <server.conf>`.
+Next we create the private key and CSR for a TLS-server certificate using
+another :doc:`request configuration file <server.conf>`.
 When prompted enter these DN components:
 DC=org, DC=simple, O=Simple Inc, CN=www.simple.org.
 Note that the subjectAltName must be specified as environment variable.
 Note also that server keys typically have no passphrase.
 
-3.4 Create server certificate
--------------------------------
+3.4 Create TLS server certificate
+---------------------------------
 ::
 
     openssl ca \
@@ -243,7 +243,7 @@ Note also that server keys typically have no passphrase.
         -out certs/simple.org.crt \
         -extensions server_ext
 
-We use the signing CA to issue the TLS-server certificate. The certificate
+We use the signing CA to issue the server certificate. The certificate
 type is defined by the extensions we attach.
 A copy of the certificate is saved in the certificate archive under the name
 ``ca/signing-ca/02.pem``.

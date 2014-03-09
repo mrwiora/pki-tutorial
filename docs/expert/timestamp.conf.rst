@@ -1,5 +1,5 @@
 ====================================================
-Time Stamping Certificate Request Configuration File
+Time-Stamping Certificate Request Configuration File
 ====================================================
 
 .. highlight:: openssl
