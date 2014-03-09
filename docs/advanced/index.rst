@@ -203,8 +203,8 @@ We create an initial, empty CRL.
     cat ca/email-ca.crt ca/root-ca.crt > \
         ca/email-ca-chain.pem
 
-The "cert chain" PEM format is supported by most OpenSSL-based software
-(e.g. Apache mod_ssl, stunnel).
+We create a certificate chain file from the email CA and root CA certificates.
+It will come handly later as input for the ``openssl pkcs12`` command.
 
 
 3. Create TLS CA
@@ -529,8 +529,7 @@ The next CRL contains the revoked certificate.
     openssl req -new \
         -config etc/codesign.conf \
         -out certs/software.csr \
-        -keyout certs/software.key \
-        -nodes
+        -keyout certs/software.key
 
 We create the private key and CSR for a code-signing certificate
 using another :doc:`request configuration file<codesign.conf>`.
@@ -620,8 +619,8 @@ MIME type: application/pkix-crl.
 ::
 
     openssl crl2pkcs7 -nocrl \
-        -certfile ca/tls-ca-chain.pem \
-        -out ca/tls-ca-chain.p7c \
+        -certfile ca/email-ca-chain.pem \
+        -out ca/email-ca-chain.p7c \
         -outform der
 
 PKCS#7 is used to bundle two or more certificates.
