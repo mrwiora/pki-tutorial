@@ -409,10 +409,10 @@ DN: C=SE, O=Blue AB, CN=www.blue.se
 
     openssl req -new \
         -config etc/client.conf \
-        -out certs/monitor.csr \
-        -keyout certs/monitor.key
+        -out certs/net-mon.csr \
+        -keyout certs/net-mon.key
 
-DN: C=SE, O=Blue AB, CN=Blue Network Monitor
+DN: C=SE, O=Blue AB, CN=Blue Network Monitoring
 
 6.4 Create TLS client certificate
 ---------------------------------
@@ -420,8 +420,8 @@ DN: C=SE, O=Blue AB, CN=Blue Network Monitor
 
     openssl ca \
         -config etc/component-ca.conf \
-        -in certs/monitor.csr \
-        -out certs/monitor.crt \
+        -in certs/net-mon.csr \
+        -out certs/net-mon.crt \
         -extensions client_ext
 
 6.5 Create time-stamping request
@@ -430,10 +430,10 @@ DN: C=SE, O=Blue AB, CN=Blue Network Monitor
 
     openssl req -new \
         -config etc/timestamp.conf \
-        -out certs/timer.csr \
-        -keyout certs/timer.key
+        -out certs/tsa.csr \
+        -keyout certs/tsa.key
 
-DN: C=SE, O=Blue AB, CN=Blue Timestamp Service
+DN: C=SE, O=Blue AB, OU=Blue TSA, CN=Blue TSA
 
 6.6 Create time-stamping certificate
 -------------------------------------
@@ -441,9 +441,10 @@ DN: C=SE, O=Blue AB, CN=Blue Timestamp Service
 
     openssl ca \
         -config etc/component-ca.conf \
-        -in certs/timer.csr \
-        -out certs/timer.crt \
-        -extensions timestamp_ext
+        -in certs/tsa.csr \
+        -out certs/tsa.crt \
+        -extensions timestamp_ext \
+        -days 1826
 
 6.7 Create OCSP-signing request
 --------------------------------
@@ -451,8 +452,8 @@ DN: C=SE, O=Blue AB, CN=Blue Timestamp Service
 
     openssl req -new \
         -config etc/ocspsign.conf \
-        -out certs/responder.csr \
-        -keyout certs/responder.key
+        -out certs/ocsp.csr \
+        -keyout certs/ocsp.key
 
 DN: C=SE, O=Blue AB, CN=Blue OCSP Responder
 
@@ -462,13 +463,10 @@ DN: C=SE, O=Blue AB, CN=Blue OCSP Responder
 
     openssl ca \
         -config etc/component-ca.conf \
-        -in certs/responder.csr \
-        -out certs/responder.crt \
+        -in certs/ocsp.csr \
+        -out certs/ocsp.crt \
         -extensions ocspsign_ext \
         -days 14
-
-OCSP-signing certificates are not CRL checked and should only have a
-short life span.
 
 6.9 Revoke certificate
 -----------------------
@@ -522,8 +520,8 @@ MIME type: application/pkix-crl.
 ::
 
     openssl crl2pkcs7 -nocrl \
-        -certfile ca/component-ca-chain.pem \
-        -out ca/component-ca-chain.p7c \
+        -certfile ca/identity-ca-chain.pem \
+        -out ca/identity-ca-chain.p7c \
         -outform der
 
 PKCS#7 is used to bundle two or more certificates.
