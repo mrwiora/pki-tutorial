@@ -561,7 +561,7 @@ We use the software CA to issue the code-signing certificate.
         -certfile ca/software-ca-chain.pem \
         -out certs/software.p12
 
-We pack everything up into a PKCS#12 bundle for distribution.
+We create a PKCS#12 bundle for distribution.
 
 7.4 Revoke certificate
 -----------------------
