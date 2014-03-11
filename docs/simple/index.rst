@@ -342,8 +342,10 @@ the chain up to the Root CA.
     cat certs/fred.key certs/fred.crt > \
         certs/fred.pem
 
-PEM bundles are created by concatenating other PEM-formatted files. Both
-"cert chain" and "key + cert" versions are in use.
+PEM bundles are created by concatenating other PEM-formatted files. The most
+common forms are "cert chain", "key + cert", and "key + cert chain".
+PEM bundles are supported by OpenSSL and most software based on it (e.g.
+Apache mod_ssl and stunnel.)
 
 
 5. View Results
