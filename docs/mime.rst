@@ -66,7 +66,7 @@ Where do they come from?
 #. x-pkcs7-crl was introduced by Netscape as well. Note that the .crl
    extension conflicts with pkix-crl. File contents are the same in either
    case: a DER encoded X.509 CRL.
-   [:rfc:`5280#section-5`]
+   [:rfc:`5280#section-5`] [#]_
 
 #. x-pem-file and the .pem extension stem from a predecessor of S/MIME:
    Privacy Enhanced Mail.
@@ -91,4 +91,7 @@ Where do they come from?
 .. [#] Since OpenSSL defaults to PEM encoding, almost all open-source
        software uses PEM formatted .crt files locally. See Apache mod_ssl,
        stunnel, etc.
+
+.. [#] This is a plain CRL and not PKCS#7 wrapped. The MIME
+       type says 'pkcs7' for historical reasons only.
 
