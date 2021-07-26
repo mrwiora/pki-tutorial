@@ -32,6 +32,19 @@ found to be the most effective way of partinioning the configuration space:
 Please study the configuration files included in the examples, it's where most
 of the treasure is buried.
 
+Development Continuation
+============
+
+This project is a continuation of the existing `OpenSSL PKI Tutorial v1.1
+<https://pki-tutorial.readthedocs.io/>`
+
+Changes - Protocol to differenciate versions:
+
+* Move from bitbucket to github as collaboration platform
+* Updating layout to new default template which enhances collaboration
+* Updated defaults to SHA256 and 4096bit
+
+
 PKI Concepts
 ================
 
