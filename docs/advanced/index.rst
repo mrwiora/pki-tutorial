@@ -38,7 +38,7 @@ certificates.
 To get started, fetch the Advanced PKI example files and change into the
 new directory::
 
-    git clone https://bitbucket.org/stefanholek/pki-example-2
+    git clone https://github.com/mwiora/pki-example-2.git
     cd pki-example-2
 
 
