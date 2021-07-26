@@ -39,7 +39,7 @@ all operations you are likely to encounter in a PKI.
 To get started, fetch the Simple PKI example files and change into the
 new directory::
 
-    git clone https://bitbucket.org/stefanholek/pki-example-1
+    git clone https://github.com/mwiora/pki-example-1.git
     cd pki-example-1
 
 

@@ -37,7 +37,7 @@ user certificates.
 To get started, fetch the Expert PKI example files and change into the new
 directory::
 
-    git clone https://bitbucket.org/stefanholek/pki-example-3
+    git clone https://github.com/mwiora/pki-example-3.git
     cd pki-example-3
 
 Configuration Files
