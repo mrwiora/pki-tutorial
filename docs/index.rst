@@ -13,11 +13,12 @@ Create and operate Public Key Infrastructures with OpenSSL.
 
 
 
-Overview
+Overview and General
 ============
 
-This tutorial shows how to implement real-world
-PKIs with the OpenSSL toolkit.
+This paperwork can be used, to understand the basics of a CA and to play around 
+with this. To operate a CA I would strongly advise to use a management software like
+[Step CA](https://github.com/smallstep/cli)
 
 In the first part of the tutorial we introduce the necessary terms and concepts.
 The second part consists of examples, where we build increasingly more
@@ -35,14 +36,14 @@ of the treasure is buried.
 Development Continuation
 ============
 
-This project is a continuation of the existing `OpenSSL PKI Tutorial v1.1
-<https://pki-tutorial.readthedocs.io/>`
+This project is a continuation of the existing [OpenSSL PKI Tutorial v1.1](https://pki-tutorial.readthedocs.io/)
 
 Changes - Protocol to differenciate versions:
 
 * Move from bitbucket to github as collaboration platform
 * Updating layout to new default template which enhances collaboration
 * Updated defaults to SHA256 and 4096bit
+* Recommend StepCA for Production use
 
 
 PKI Concepts
