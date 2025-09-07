@@ -41,7 +41,7 @@ master_doc = 'index'
 
 # General information about the project.
 project = u'OpenSSL PKI Tutorial NG'
-copyright = u'2012-2014, Stefan H. Holek, @stefanholek / 2021, Matthias R. Wiora, @mwiora'
+copyright = u'2012-2014, Stefan H. Holek, @stefanholek / 2025, Matthias R. Wiora, @mrwiora'
 
 # The version info for the project you're documenting, acts as replacement for
 # |version| and |release|, also used in various other places throughout the
